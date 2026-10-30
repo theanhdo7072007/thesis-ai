@@ -66,3 +66,28 @@ def chat(request: ChatRequest):
             status_code=502,
             detail="Gemini API request failed"
         )
+
+@app.get("/debug-models")
+def debug_models():
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        raise HTTPException(503, "API key missing")
+
+    try:
+        client = genai.Client(api_key=api_key)
+        return {
+            "models": [
+                m.name
+                for m in client.models.list()
+                if "generateContent" in (
+                    m.supported_actions or []
+                )
+            ]
+        }
+    except Exception as e:
+        logger.error(
+            "Model list error: %s, code=%s",
+            type(e).__name__,
+            getattr(e, "code", "unknown")
+        )
+        raise HTTPException(502, "Model listing failed")
