@@ -1,0 +1,102 @@
+
+name: THESIS AI Auto Upgrade
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: thesis-auto-upgrade
+  cancel-in-progress: false
+
+jobs:
+  upgrade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+
+    steps:
+      - name: Download source
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Generate safe UI upgrade
+        env:
+          GEMINI_UPGRADE_KEY: ${{ secrets.GEMINI_UPGRADE_KEY }}
+        run: python scripts/auto_upgrade.py
+
+      - name: Check Python syntax
+        run: |
+          python -m py_compile backend/app/main.py
+          python -m py_compile scripts/auto_upgrade.py
+
+      - name: Check HTML structure
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          html = Path(
+              "backend/app/index.html"
+          ).read_text(encoding="utf-8")
+
+          assert html.count("<script>") == 1
+          assert html.count("</script>") == 1
+          assert html.count("THESIS_AUTO_UPGRADE_START") == 1
+          assert html.count("THESIS_AUTO_UPGRADE_END") == 1
+          assert 'fetch("/chat"' in html
+          print("HTML checks passed")
+          PY
+
+      - name: Check JavaScript syntax
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          html = Path(
+              "backend/app/index.html"
+          ).read_text(encoding="utf-8")
+
+          js = html.split("<script>", 1)[1].split(
+              "</script>", 1
+          )[0]
+
+          Path("/tmp/thesis.js").write_text(js)
+          PY
+          node --check /tmp/thesis.js
+
+      - name: Restrict file changes
+        run: |
+          python - <<'PY'
+          import subprocess
+
+          changed = subprocess.check_output(
+              ["git", "diff", "--name-only"],
+              text=True
+          ).splitlines()
+
+          assert changed == [
+              "backend/app/index.html"
+          ], f"Unexpected changes: {changed}"
+
+          print("Only UI file changed")
+          PY
+
+      - name: Publish tested UI update
+        run: |
+          git config user.name "thesis-ui-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backend/app/index.html
+
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "style: THESIS AI automatic UI update"
+            git push origin HEAD:main
+          fi
