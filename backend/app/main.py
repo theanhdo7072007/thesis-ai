@@ -58,8 +58,9 @@ def chat(request: ChatRequest):
     
     except Exception as e:
         logger.error(
-            "Gemini request failed: %s",
-            type(e).__name__
+            "Gemini error: code=%s, status=%s",
+            getattr(e, "code", "unknown"),
+            getattr(e, "status", "unknown")
         )
         raise HTTPException(
             status_code=502,
