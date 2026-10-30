@@ -1,0 +1,73 @@
+
+name: THESIS AI Daily Learning
+
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: thesis-daily-learning
+  cancel-in-progress: false
+
+jobs:
+  learn:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+
+    steps:
+      - name: Download source
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Learn with Gemini
+        env:
+          GEMINI_LEARNING_KEY: ${{ secrets.GEMINI_LEARNING_KEY }}
+          LEARNING_MODEL: gemini-3.1-flash-lite
+        run: python scripts/daily_learning.py
+
+      - name: Validate knowledge
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          p = Path("knowledge/notes.json")
+          notes = json.loads(p.read_text(encoding="utf-8"))
+
+          assert isinstance(notes, list)
+          assert len(notes) <= 450
+          assert all(
+              isinstance(x, dict)
+              and x.get("url", "").startswith("https://")
+              for x in notes
+          )
+
+          changed = subprocess.check_output(
+              ["git", "status", "--porcelain"],
+              text=True
+          )
+          files = [line[3:] for line in changed.splitlines()]
+          assert set(files) <= {"knowledge/notes.json"}, files
+          print("Knowledge validation passed")
+          PY
+
+      - name: Save learned knowledge
+        run: |
+          git add knowledge/notes.json
+          if git diff --cached --quiet; then
+            echo "Nothing new to save"
+          else
+            git config user.name "thesis-learning-bot"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "knowledge: daily learning"
+            git push origin HEAD:main
+          fi
