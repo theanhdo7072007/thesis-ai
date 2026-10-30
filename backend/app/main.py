@@ -2,7 +2,10 @@
 import os
 import secrets
 import logging
+from pathlib import Path
+from fastapi.responses import FileResponse
 
+BASE_DIR = Path(__file__).resolve().parent
 logger = logging.getLogger("uvicorn.error")
 from fastapi import FastAPI, HTTPException, Header
 from pydantic import BaseModel
@@ -13,15 +16,12 @@ app = FastAPI(title="THESIS AI")
 
 class ChatRequest(BaseModel):
     message: str
-
 @app.get("/")
 def home():
-    return {
-        "name": "THESIS AI",
-        "status": "online",
-        "message": "THESIS AI backend is ready"
-    }
-
+    return FileResponse(
+        BASE_DIR / "index.html",
+        media_type="text/html"
+    )
 @app.get("/health")
 def health():
     return {"status": "ok"}
