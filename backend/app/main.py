@@ -1,9 +1,10 @@
 
 import os
+import secrets
 import logging
 
 logger = logging.getLogger("uvicorn.error")
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Header
 from pydantic import BaseModel
 from google import genai
 from google.genai import types
@@ -26,7 +27,27 @@ def health():
     return {"status": "ok"}
 
 @app.post("/chat")
-def chat(request: ChatRequest):
+def chat(
+    request: ChatRequest,
+    x_thesis_token: str = Header(default="")
+):
+    access_token = os.getenv("THESIS_ACCESS_TOKEN")
+
+    if not access_token:
+        raise HTTPException(
+            status_code=503,
+            detail="Access token not configured"
+        )
+
+    if not secrets.compare_digest(
+        x_thesis_token,
+        access_token
+    ):
+        raise HTTPException(
+            status_code=401,
+            detail="Unauthorized"
+        )
+
     api_key = os.getenv("GEMINI_API_KEY")
 
     if not api_key:
@@ -66,28 +87,3 @@ model="gemini-3.1-flash-lite",
             status_code=502,
             detail="Gemini API request failed"
         )
-
-@app.get("/debug-models")
-def debug_models():
-    api_key = os.getenv("GEMINI_API_KEY")
-    if not api_key:
-        raise HTTPException(503, "API key missing")
-
-    try:
-        client = genai.Client(api_key=api_key)
-        return {
-            "models": [
-                m.name
-                for m in client.models.list()
-                if "generateContent" in (
-                    m.supported_actions or []
-                )
-            ]
-        }
-    except Exception as e:
-        logger.error(
-            "Model list error: %s, code=%s",
-            type(e).__name__,
-            getattr(e, "code", "unknown")
-        )
-        raise HTTPException(502, "Model listing failed")
