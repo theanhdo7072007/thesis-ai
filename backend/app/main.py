@@ -55,13 +55,13 @@ def chat(request: ChatRequest):
         return {
             "reply": response.text
         }
-except Exception as e:
-    logger.error(
-        "Gemini request failed: %s: %s",
-        type(e).__name__,
-        str(e).split("key=")[0][:200]
-    )
-    raise HTTPException(
-        status_code=502,
-        detail="Gemini API request failed"
-    )
+    
+    except Exception as e:
+        logger.error(
+            "Gemini request failed: %s",
+            type(e).__name__
+        )
+        raise HTTPException(
+            status_code=502,
+            detail="Gemini API request failed"
+        )
