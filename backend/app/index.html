@@ -2,321 +2,861 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0b0f14">
-  <title>THESIS AI — Private Intelligence</title>
-  <style>
-    * { box-sizing: border-box; }
-    :root {
-      color-scheme: dark;
-      --bg: #0b0f14;
-      --panel: #111821;
-      --line: #263341;
-      --text: #ecf4f2;
-      --muted: #8a9aab;
-      --accent: #76f1c1;
-    }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-    button, textarea, input { font: inherit; }
-    button { cursor: pointer; }
-    header {
-      height: 70px;
-      padding: 0 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--line);
-    }
-    .brand { font-weight: 800; letter-spacing: 2px; }
-    .brand span { color: var(--accent); }
-    .status { color: var(--muted); font-size: 12px; }
-    .status::before { content: "● "; color: var(--accent); }
-    main {
-      max-width: 850px;
-      margin: auto;
-      height: calc(100dvh - 70px);
-      display: flex;
-      flex-direction: column;
-    }
-    #messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 24px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-    .welcome { text-align: center; margin: auto 0; }
-    .welcome .symbol { font-size: 48px; color: var(--accent); }
-    h1 { font-size: 30px; margin-bottom: 8px; }
-    .welcome p { color: var(--muted); line-height: 1.6; }
-    .message {
-      max-width: 88%;
-      padding: 14px 17px;
-      border-radius: 17px;
-      line-height: 1.65;
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-    }
-    .user {
-      align-self: flex-end;
-      background: #1b3a35;
-      border: 1px solid #315a4c;
-    }
-    .assistant {
-      align-self: flex-start;
-      background: var(--panel);
-      border: 1px solid var(--line);
-    }
-    .composer {
-      display: flex;
-      align-items: flex-end;
-      gap: 10px;
-      padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
-      border-top: 1px solid var(--line);
-    }
-    textarea {
-      flex: 1;
-      min-height: 48px;
-      max-height: 150px;
-      resize: none;
-      border: 1px solid var(--line);
-      border-radius: 15px;
-      padding: 13px;
-      color: white;
-      background: var(--panel);
-      outline: none;
-    }
-    textarea:focus { border-color: var(--accent); }
-    .send {
-      height: 48px;
-      width: 48px;
-      border: none;
-      border-radius: 14px;
-      background: var(--accent);
-      color: #091713;
-      font-weight: 800;
-      font-size: 22px;
-    }
-    .send:disabled { opacity: .4; }
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: #0b0f14;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-    .login {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      padding: 30px;
-      width: 100%;
-      max-width: 400px;
-      text-align: center;
-    }
-    .login h2 { margin: 12px 0; }
-    .login p { color: var(--muted); }
-    .login input {
-      width: 100%;
-      background: var(--bg);
-      border: 1px solid var(--line);
-      color: white;
-      border-radius: 12px;
-      padding: 15px;
-      margin: 18px 0 12px;
-    }
-    .primary {
-      background: var(--accent);
-      color: #071711;
-      border: none;
-      border-radius: 12px;
-      padding: 14px 20px;
-      font-weight: bold;
-      width: 100%;
-    }
-    .error { color: #ff9191; font-size: 13px; }
-    .actions { display: flex; gap: 12px; align-items: center; }
-    .small-btn {
-      background: transparent;
-      color: var(--muted);
-      border: 1px solid var(--line);
-      border-radius: 9px;
-      padding: 8px;
-      font-size: 12px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0f14">
+<title>THESIS AI — Private Intelligence</title>
+<style>
+:root {
+  color-scheme: dark;
+  --bg: #0b0f14;
+  --side: #10161d;
+  --panel: #151d26;
+  --border: #28333f;
+  --text: #eef4f2;
+  --muted: #93a3af;
+  --mint: #74edbe;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+button, textarea, input { font: inherit; }
+button { cursor: pointer; }
+button:disabled { opacity: .5; cursor: wait; }
+button:focus-visible, input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 2px;
+}
+.app {
+  display: flex;
+  height: 100dvh;
+  overflow: hidden;
+}
+.sidebar {
+  width: 278px;
+  flex: 0 0 278px;
+  background: var(--side);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 12px;
+}
+.logo {
+  font-size: 21px;
+  letter-spacing: 2px;
+  font-weight: 800;
+  padding: 8px;
+}
+.logo span { color: var(--mint); }
+.subtitle {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 0 8px 22px;
+}
+.action {
+  width: 100%;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  text-align: left;
+}
+.action:hover, .chat-item:hover {
+  background: #1c2731;
+}
+.section-label {
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  padding: 24px 8px 10px;
+}
+.history {
+  flex: 1;
+  overflow-y: auto;
+}
+.chat-item {
+  padding: 12px;
+  margin: 3px 0;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #bccbd3;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+.chat-item.active {
+  color: var(--mint);
+  background: #18332e;
+  border-color: #28564a;
+}
+.sidebar-footer {
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  display: grid;
+  gap: 8px;
+}
+.small {
+  font-size: 12px;
+  color: var(--muted);
+}
+.workspace {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.topbar {
+  height: 66px;
+  flex: 0 0 66px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 22px;
+}
+.top-title {
+  font-size: 15px;
+  font-weight: 650;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.icon-btn {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 9px 11px;
+  border-radius: 10px;
+}
+.status {
+  color: var(--mint);
+  font-size: 12px;
+}
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 18px;
+}
+.messages-inner {
+  max-width: 830px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+}
+.welcome {
+  text-align: center;
+  margin: max(60px, 12vh) auto 30px;
+}
+.orb {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 24px;
+  background: linear-gradient(145deg,#1c564b,#10221f);
+  color: var(--mint);
+  font-size: 38px;
+  border: 1px solid #327660;
+}
+.welcome h1 { font-size: 32px; margin: 24px 0 8px; }
+.welcome p { color: var(--muted); line-height: 1.6; }
+.suggestions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 12px;
+  margin: 28px auto 0;
+  max-width: 580px;
+}
+.suggestion {
+  text-align: left;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 15px;
+  line-height: 1.5;
+}
+.suggestion:hover { border-color: var(--mint); }
+.message {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  min-width: 0;
+}
+.avatar {
+  flex: 0 0 33px;
+  height: 33px;
+  width: 33px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  background: #22463c;
+  color: var(--mint);
+  font-weight: bold;
+}
+.user-msg .avatar {
+  background: #263543;
+  color: #d5e5ee;
+}
+.message-content {
+  flex: 1;
+  min-width: 0;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.message-role {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+.user-msg .message-content {
+  background: #172630;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 16px;
+  white-space: pre-wrap;
+}
+.markdown p { margin: 0 0 12px; }
+.markdown h2, .markdown h3 {
+  line-height: 1.4;
+  margin: 16px 0 10px;
+}
+.markdown h2 { font-size: 19px; }
+.markdown h3 { font-size: 16px; }
+.markdown .list-line { margin: 4px 0 4px 14px; }
+.markdown blockquote {
+  margin: 12px 0;
+  border-left: 3px solid var(--mint);
+  padding-left: 12px;
+  color: #bed0d1;
+}
+.markdown code {
+  background: #23303c;
+  border-radius: 5px;
+  padding: 2px 5px;
+  font-family: ui-monospace, monospace;
+  font-size: 13px;
+}
+.markdown pre {
+  overflow-x: auto;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #080d12;
+  margin: 12px 0;
+}
+.markdown pre code {
+  background: transparent;
+  padding: 0;
+  white-space: pre;
+}
+.markdown strong { color: #fff; }
+.markdown hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 18px 0;
+}
+.composer-area {
+  padding: 12px 18px calc(12px + env(safe-area-inset-bottom));
+}
+.composer-wrap { max-width: 830px; margin: auto; }
+.composer {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 19px;
+  padding: 10px;
+}
+.composer:focus-within { border-color: #397e69; }
+textarea {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  resize: none;
+  color: var(--text);
+  background: transparent;
+  padding: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+  max-height: 180px;
+}
+.send {
+  height: 43px;
+  width: 43px;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 13px;
+  color: #092118;
+  background: var(--mint);
+  font-size: 22px;
+}
+.footer-text {
+  text-align: center;
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 10px;
+}
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: #0b0f14;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+.login {
+  width: 100%;
+  max-width: 390px;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: var(--panel);
+  padding: 30px 25px;
+  text-align: center;
+}
+.login h1 { margin-bottom: 5px; }
+.login p { color: var(--muted); }
+.login input {
+  width: 100%;
+  border-radius: 12px;
+  padding: 15px;
+  margin: 18px 0 12px;
+  border: 1px solid var(--border);
+  background: #0b0f14;
+  color: white;
+  font-size: 16px;
+}
+.primary {
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  padding: 14px;
+  background: var(--mint);
+  font-weight: bold;
+  color: #062014;
+}
+.error { color: #ff9d9d; font-size: 13px; }
+.menu-btn { display: none; }
+.scrim { display: none; }
+@media(max-width: 760px) {
+  .sidebar {
+    position: fixed;
+    z-index: 20;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    transition: transform .2s;
+    width: min(82vw, 300px);
+  }
+  .sidebar.open { transform: translateX(0); }
+  .scrim.show {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 19;
+    background: #0009;
+  }
+  .menu-btn { display: inline-block; }
+  .topbar { padding: 0 12px; }
+  .top-title { flex: 1; }
+  .status { display: none; }
+  .messages { padding: 18px 13px; }
+  .message { gap: 9px; }
+  .avatar { flex-basis: 29px; width: 29px; height: 29px; }
+  .suggestions { grid-template-columns: 1fr; }
+  .composer-area { padding-left: 10px; padding-right: 10px; }
+  .welcome h1 { font-size: 27px; }
+}
+</style>
 </head>
 <body>
 
-<header>
-  <div class="brand">THESIS <span>AI</span></div>
-  <div class="actions">
-    <div class="status">PRIVATE</div>
-    <button class="small-btn" id="newChat">Chat mới</button>
-    <button class="small-btn" id="lockBtn">Khóa</button>
-  </div>
-</header>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="logo">THESIS <span>AI</span></div>
+    <div class="subtitle">PRIVATE INVESTMENT INTELLIGENCE</div>
+    <button class="action" id="newChat">＋ Chat mới</button>
+    <div class="section-label">Lịch sử trò chuyện</div>
+    <div class="history" id="historyList"></div>
+    <div class="sidebar-footer">
+      <button class="action" id="renameChat">✎ Đổi tên chat</button>
+      <button class="action" id="exportChat">↓ Sao lưu lịch sử</button>
+      <button class="action" id="deleteChat">⌫ Xóa chat hiện tại</button>
+      <button class="action" id="lockBtn">♢ Khóa THESIS AI</button>
+      <div class="small">Lịch sử lưu trên thiết bị này</div>
+    </div>
+  </aside>
 
-<main>
-  <section id="messages">
-    <div class="welcome" id="welcome">
-      <div class="symbol">✦</div>
-      <h1>THESIS AI</h1>
-      <p>Private Investment Intelligence</p>
-      <p>Phân tích doanh nghiệp, chứng khoán,<br>crypto và quản trị rủi ro.</p>
+  <div class="scrim" id="scrim"></div>
+
+  <section class="workspace">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menuBtn">☰</button>
+      <div class="top-title" id="chatTitle">THESIS AI</div>
+      <div class="top-actions">
+        <div class="status">● Gemini connected</div>
+        <button class="icon-btn" id="topNewChat" title="Chat mới">＋</button>
+      </div>
+    </header>
+
+    <div class="messages" id="messages">
+      <div class="messages-inner" id="messagesInner"></div>
+    </div>
+
+    <div class="composer-area">
+      <form class="composer" id="chatForm">
+        <textarea id="prompt" rows="1"
+          placeholder="Nhắn tin cho THESIS AI..."
+          required></textarea>
+        <button class="send" id="sendBtn" type="submit">↑</button>
+      </form>
+      <div class="footer-text">
+        THESIS AI có thể sai. Hãy kiểm chứng thông tin đầu tư.
+      </div>
     </div>
   </section>
-
-  <form class="composer" id="chatForm">
-    <textarea id="prompt" rows="1"
-      placeholder="Hỏi THESIS AI..."
-      required></textarea>
-    <button class="send" id="sendBtn" type="submit">↑</button>
-  </form>
-</main>
+</div>
 
 <div class="overlay" id="loginOverlay">
   <div class="login">
-    <div style="font-size:40px;color:#76f1c1">✦</div>
-    <h2>THESIS AI</h2>
-    <p>Trợ lý nghiên cứu đầu tư cá nhân</p>
+    <div class="orb">✦</div>
+    <h1>THESIS AI</h1>
+    <p>Không gian trí tuệ đầu tư cá nhân</p>
     <form id="loginForm">
-      <input id="tokenInput" type="password"
-        placeholder="Nhập mã truy cập" required
-        autocomplete="off">
-      <button class="primary" type="submit">
-        Mở THESIS AI
-      </button>
+      <input type="password" id="tokenInput"
+        placeholder="Mã truy cập cá nhân"
+        autocomplete="off" required>
+      <button class="primary" type="submit">Mở THESIS AI</button>
     </form>
     <p class="error" id="loginError"></p>
-    <p style="font-size:12px">Private • Secured API</p>
+    <p class="small">Private access • Powered by Gemini</p>
   </div>
 </div>
 
 <script>
-  const messages = document.getElementById("messages");
-  const welcome = document.getElementById("welcome");
-  const form = document.getElementById("chatForm");
-  const promptInput = document.getElementById("prompt");
-  const sendBtn = document.getElementById("sendBtn");
-  const overlay = document.getElementById("loginOverlay");
-  const loginError = document.getElementById("loginError");
+const $ = id => document.getElementById(id);
+const storageKey = "thesis_ai_chats_v2";
+const activeKey = "thesis_ai_active_v2";
 
-  let token = sessionStorage.getItem("thesis_token") || "";
-  let history = [];
-  let busy = false;
+let token = sessionStorage.getItem("thesis_token") || "";
+let chats = [];
+let activeId = "";
+let busy = false;
 
-  if (token) overlay.style.display = "none";
+function makeId() {
+  return Date.now().toString(36) +
+    Math.random().toString(36).slice(2, 9);
+}
 
-  function addMessage(text, role) {
-    if (welcome) welcome.style.display = "none";
-    const element = document.createElement("div");
-    element.className = "message " + role;
-    element.textContent = text;
-    messages.appendChild(element);
-    messages.scrollTop = messages.scrollHeight;
-    return element;
+function loadChats() {
+  try {
+    const data = JSON.parse(localStorage.getItem(storageKey) || "[]");
+    chats = Array.isArray(data) ? data : [];
+  } catch (_) {
+    chats = [];
   }
 
-  document.getElementById("loginForm")
-    .addEventListener("submit", function(event) {
-      event.preventDefault();
-      token = document.getElementById("tokenInput").value.trim();
-      if (!token) return;
-      sessionStorage.setItem("thesis_token", token);
-      document.getElementById("tokenInput").value = "";
-      loginError.textContent = "";
-      overlay.style.display = "none";
-      promptInput.focus();
+  activeId = localStorage.getItem(activeKey) || "";
+  if (!chats.some(c => c.id === activeId)) {
+    activeId = chats[0]?.id || "";
+  }
+  if (!activeId) createChat();
+  else renderAll();
+}
+
+function saveChats() {
+  try {
+    localStorage.setItem(storageKey, JSON.stringify(chats));
+    localStorage.setItem(activeKey, activeId);
+  } catch (_) {
+    alert("Không lưu được lịch sử. Bộ nhớ trình duyệt có thể đã đầy.");
+  }
+}
+
+function currentChat() {
+  return chats.find(c => c.id === activeId);
+}
+
+function closeMenu() {
+  $("sidebar").classList.remove("open");
+  $("scrim").classList.remove("show");
+}
+
+function createChat() {
+  if (busy) return;
+  const c = {
+    id: makeId(),
+    title: "Cuộc trò chuyện mới",
+    messages: [],
+    createdAt: new Date().toISOString()
+  };
+  chats.unshift(c);
+  activeId = c.id;
+  saveChats();
+  renderAll();
+  closeMenu();
+}
+
+function switchChat(id) {
+  if (busy) return;
+  activeId = id;
+  saveChats();
+  renderAll();
+  closeMenu();
+}
+
+function escapeHTML(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function inlineMarkdown(value) {
+  let s = escapeHTML(value);
+  s = s.replace(/`([^`\n]+)`/g, "<code>$1</code>");
+  s = s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  s = s.replace(/\*(.+?)\*/g, "<em>$1</em>");
+  return s;
+}
+
+function markdownHTML(text) {
+  const lines = String(text).split("\n");
+  let html = "";
+  let code = [];
+  let inCode = false;
+  let para = [];
+
+  function flushParagraph() {
+    if (para.length) {
+      html += "<p>" + para.map(inlineMarkdown).join("<br>") + "</p>";
+      para = [];
+    }
+  }
+
+  for (const line of lines) {
+    if (/^\s*```/.test(line)) {
+      flushParagraph();
+      if (!inCode) {
+        inCode = true;
+        code = [];
+      } else {
+        html += "<pre><code>" +
+          escapeHTML(code.join("\n")) +
+          "</code></pre>";
+        inCode = false;
+      }
+      continue;
+    }
+    if (inCode) {
+      code.push(line);
+      continue;
+    }
+    const trimmed = line.trim();
+    if (!trimmed) {
+      flushParagraph();
+    } else if (/^###?\s+/.test(trimmed)) {
+      flushParagraph();
+      const level = trimmed.startsWith("### ") ? 3 : 2;
+      const value = trimmed.replace(/^###?\s+/, "");
+      html += "<h" + level + ">" +
+        inlineMarkdown(value) +
+        "</h" + level + ">";
+    } else if (/^[-*]\s+/.test(trimmed)) {
+      flushParagraph();
+      html += '<div class="list-line">• ' +
+        inlineMarkdown(trimmed.slice(2)) + "</div>";
+    } else if (/^\d+\.\s+/.test(trimmed)) {
+      flushParagraph();
+      html += '<div class="list-line">' +
+        inlineMarkdown(trimmed) + "</div>";
+    } else if (trimmed.startsWith("> ")) {
+      flushParagraph();
+      html += "<blockquote>" +
+        inlineMarkdown(trimmed.slice(2)) + "</blockquote>";
+    } else if (/^---+$/.test(trimmed)) {
+      flushParagraph();
+      html += "<hr>";
+    } else {
+      para.push(line);
+    }
+  }
+  flushParagraph();
+  if (inCode) {
+    html += "<pre><code>" +
+      escapeHTML(code.join("\n")) + "</code></pre>";
+  }
+  return html;
+}
+
+function addMessage(text, role) {
+  const wrap = document.createElement("div");
+  wrap.className = "message " +
+    (role === "user" ? "user-msg" : "ai-msg");
+
+  const avatar = document.createElement("div");
+  avatar.className = "avatar";
+  avatar.textContent = role === "user" ? "U" : "✦";
+
+  const body = document.createElement("div");
+  body.className = "message-content";
+
+  const label = document.createElement("div");
+  label.className = "message-role";
+  label.textContent = role === "user" ? "Bạn" : "THESIS AI";
+  body.appendChild(label);
+
+  const content = document.createElement("div");
+  if (role === "user") {
+    content.textContent = text;
+  } else {
+    content.className = "markdown";
+    content.innerHTML = markdownHTML(text);
+  }
+
+  body.appendChild(content);
+  wrap.appendChild(avatar);
+  wrap.appendChild(body);
+  $("messagesInner").appendChild(wrap);
+  $("messages").scrollTop = $("messages").scrollHeight;
+  return content;
+}
+
+function renderWelcome() {
+  const welcome = document.createElement("div");
+  welcome.className = "welcome";
+
+  welcome.innerHTML = `
+    <div class="orb">✦</div>
+    <h1>THESIS AI</h1>
+    <p>Private Investment Intelligence</p>
+    <p>Hôm nay m muốn nghiên cứu điều gì?</p>
+    <div class="suggestions">
+      <button class="suggestion" data-prompt="Giải thích phương pháp định giá DCF từng bước.">
+        ◇ Học định giá DCF
+      </button>
+      <button class="suggestion" data-prompt="Hướng dẫn phân tích báo cáo tài chính doanh nghiệp.">
+        ▤ Phân tích báo cáo tài chính
+      </button>
+      <button class="suggestion" data-prompt="Hướng dẫn quản trị rủi ro khi giao dịch BTC.">
+        ◈ Quản trị rủi ro crypto
+      </button>
+      <button class="suggestion" data-prompt="Giải thích cách xây dựng danh mục đầu tư dài hạn.">
+        ◎ Xây dựng danh mục đầu tư
+      </button>
+    </div>
+  `;
+
+  $("messagesInner").appendChild(welcome);
+  welcome.querySelectorAll("[data-prompt]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      $("prompt").value = btn.dataset.prompt;
+      $("prompt").focus();
+    });
+  });
+}
+
+function renderHistory() {
+  $("historyList").replaceChildren();
+  for (const chat of chats) {
+    const item = document.createElement("div");
+    item.className = "chat-item" +
+      (chat.id === activeId ? " active" : "");
+    item.textContent = chat.title || "Cuộc trò chuyện";
+    item.title = item.textContent;
+    item.addEventListener("click", () => switchChat(chat.id));
+    $("historyList").appendChild(item);
+  }
+}
+
+function renderAll() {
+  const chat = currentChat();
+  if (!chat) return;
+
+  $("chatTitle").textContent = chat.title;
+  $("messagesInner").replaceChildren();
+
+  if (!chat.messages.length) renderWelcome();
+  else for (const msg of chat.messages) {
+    addMessage(msg.text, msg.role);
+  }
+
+  renderHistory();
+}
+
+function lock() {
+  token = "";
+  sessionStorage.removeItem("thesis_token");
+  $("tokenInput").value = "";
+  $("loginOverlay").style.display = "grid";
+  closeMenu();
+}
+
+$("loginForm").addEventListener("submit", event => {
+  event.preventDefault();
+  token = $("tokenInput").value.trim();
+  if (!token) return;
+
+  sessionStorage.setItem("thesis_token", token);
+  $("tokenInput").value = "";
+  $("loginError").textContent = "";
+  $("loginOverlay").style.display = "none";
+});
+
+$("chatForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  if (busy || !token) return;
+
+  const text = $("prompt").value.trim();
+  if (!text) return;
+
+  const chat = currentChat();
+  if (!chat) return;
+
+  busy = true;
+  $("sendBtn").disabled = true;
+
+  const previous = chat.messages.slice(-16).map(m => ({
+    role: m.role,
+    text: m.text
+  }));
+
+  if (!chat.messages.length) {
+    chat.title = text.slice(0, 42);
+  }
+
+  chat.messages.push({ role: "user", text });
+  saveChats();
+  renderAll();
+
+  $("prompt").value = "";
+  $("prompt").style.height = "auto";
+  const thinking = addMessage("Đang phân tích...", "model");
+
+  try {
+    const response = await fetch("/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-thesis-token": token
+      },
+      body: JSON.stringify({
+        message: text,
+        history: previous
+      })
     });
 
-  document.getElementById("lockBtn")
-    .addEventListener("click", function() {
-      token = "";
-      sessionStorage.removeItem("thesis_token");
-      overlay.style.display = "flex";
-    });
+    if (response.status === 401) {
+      lock();
+      throw new Error("Mã truy cập không hợp lệ.");
+    }
+    if (!response.ok) {
+      throw new Error("Máy chủ trả lỗi " + response.status);
+    }
 
-  document.getElementById("newChat")
-    .addEventListener("click", function() {
-      history = [];
-      messages.replaceChildren();
-      const w = document.createElement("div");
-      w.className = "welcome";
-      w.innerHTML = "<h1>THESIS AI</h1><p>Cuộc trò chuyện mới</p>";
-      messages.appendChild(w);
-    });
+    const data = await response.json();
+    const reply = data.reply || "Không nhận được câu trả lời.";
 
-  form.addEventListener("submit", async function(event) {
+    chat.messages.push({ role: "model", text: reply });
+    saveChats();
+    renderAll();
+
+  } catch (error) {
+    thinking.textContent = "Lỗi: " + error.message;
+  } finally {
+    busy = false;
+    $("sendBtn").disabled = false;
+  }
+});
+
+$("newChat").addEventListener("click", createChat);
+$("topNewChat").addEventListener("click", createChat);
+$("lockBtn").addEventListener("click", lock);
+
+$("menuBtn").addEventListener("click", () => {
+  $("sidebar").classList.toggle("open");
+  $("scrim").classList.toggle("show");
+});
+$("scrim").addEventListener("click", closeMenu);
+
+$("renameChat").addEventListener("click", () => {
+  const c = currentChat();
+  if (!c || busy) return;
+
+  const name = prompt("Tên cuộc trò chuyện:", c.title);
+  if (name && name.trim()) {
+    c.title = name.trim().slice(0, 80);
+    saveChats();
+    renderAll();
+  }
+});
+
+$("deleteChat").addEventListener("click", () => {
+  if (busy) return;
+  if (!confirm("Xóa cuộc trò chuyện này?")) return;
+
+  chats = chats.filter(c => c.id !== activeId);
+  activeId = chats[0]?.id || "";
+  if (!activeId) createChat();
+  else {
+    saveChats();
+    renderAll();
+  }
+  closeMenu();
+});
+
+$("exportChat").addEventListener("click", () => {
+  const data = JSON.stringify(chats, null, 2);
+  const blob = new Blob([data], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "thesis-ai-backup.json";
+  link.click();
+  URL.revokeObjectURL(url);
+});
+
+$("prompt").addEventListener("input", () => {
+  $("prompt").style.height = "auto";
+  $("prompt").style.height =
+    Math.min($("prompt").scrollHeight, 180) + "px";
+});
+
+$("prompt").addEventListener("keydown", event => {
+  if (event.key === "Enter" && !event.shiftKey &&
+      !event.isComposing && window.innerWidth > 760) {
     event.preventDefault();
-    const text = promptInput.value.trim();
-    if (!text || busy || !token) return;
+    $("chatForm").requestSubmit();
+  }
+});
 
-    busy = true;
-    sendBtn.disabled = true;
-    addMessage(text, "user");
-    promptInput.value = "";
-
-    const thinking = addMessage("THESIS AI đang phân tích...", "assistant");
-
-    try {
-      const response = await fetch("/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-thesis-token": token
-        },
-        body: JSON.stringify({
-          message: text,
-          history: history
-        })
-      });
-
-      if (response.status === 401) {
-        token = "";
-        sessionStorage.removeItem("thesis_token");
-        overlay.style.display = "flex";
-        throw new Error("Mã truy cập không chính xác. Hãy nhập lại.");
-      }
-
-      if (!response.ok) {
-        throw new Error("Máy chủ trả lỗi " + response.status);
-      }
-
-      const data = await response.json();
-      const reply = data.reply || "Không nhận được nội dung.";
-
-      thinking.textContent = reply;
-
-      history.push({ role: "user", text: text });
-      history.push({ role: "model", text: reply });
-      history = history.slice(-16);
-
-    } catch (error) {
-      thinking.textContent = "Lỗi: " + error.message;
-    } finally {
-      busy = false;
-      sendBtn.disabled = false;
-      promptInput.focus();
-    }
-  });
-
-  promptInput.addEventListener("keydown", function(event) {
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      form.requestSubmit();
-    }
-  });
+loadChats();
+if (token) $("loginOverlay").style.display = "none";
 </script>
 </body>
 </html>
