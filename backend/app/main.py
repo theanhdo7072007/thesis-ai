@@ -39,7 +39,7 @@ def chat(request: ChatRequest):
         client = genai.Client(api_key=api_key)
 
         response = client.models.generate_content(
-    model="gemini-3.5-flash-lite",
+model="gemini-3.1-flash-lite",
             contents=request.message,
             config=types.GenerateContentConfig(
                 system_instruction=(
