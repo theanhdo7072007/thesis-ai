@@ -1,1 +1,44 @@
-[]
+[
+  {
+    "id": "41690a4ebc45cdda",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Federal Reserve Board announces approval of application by The Bank of Nova Scotia",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/orders20261029a.htm",
+    "snippet": "Federal Reserve Board announces approval of application by The Bank of Nova Scotia",
+    "published": "Thu, 29 Oct 2026 20:30:00 GMT",
+    "summary_vi": "Cục Dự trữ Liên bang đã thông báo phê duyệt đơn đăng ký từ The Bank of Nova Scotia.",
+    "open_question_vi": "Nội dung chi tiết của đơn đăng ký mà The Bank of Nova Scotia đã được phê duyệt là gì?",
+    "learned_at": "2026-10-30T20:45:25+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "a0c3e1be77e8b5a2",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Federal Reserve issues FOMC statement",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+    "snippet": "Federal Reserve issues FOMC statement",
+    "published": "Wed, 28 Oct 2026 18:00:00 GMT",
+    "summary_vi": "Cục Dự trữ Liên bang đã đưa ra tuyên bố từ Ủy ban Thị trường Mở Liên bang (FOMC).",
+    "open_question_vi": "Các quyết định cụ thể về chính sách tiền tệ được nêu trong tuyên bố của FOMC là gì?",
+    "learned_at": "2026-10-30T20:45:25+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "c03d43a4c5741eb3",
+    "category": "technology",
+    "source": "blog.python.org",
+    "title": "Python 3.15.2, 3.14.10, 3.13.18, 3.12.16 and 3.11.18 are out",
+    "url": "https://blog.python.org/2026/10/python-3152-31410-31318-31216-31118/",
+    "snippet": "Five expedited security releases to distrust the compromised eMudhra intermediate CA keys.",
+    "published": "Mon, 26 Oct 2026 00:00:00 GMT",
+    "summary_vi": "Python đã phát hành năm bản cập nhật bảo mật khẩn cấp cho các phiên bản từ 3.11 đến 3.15 để xử lý vấn đề liên quan đến khóa CA trung gian eMudhra bị xâm phạm.",
+    "open_question_vi": "Mức độ ảnh hưởng của việc khóa CA trung gian eMudhra bị xâm phạm đối với người dùng Python là như thế nào?",
+    "learned_at": "2026-10-30T20:45:25+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  }
+]
