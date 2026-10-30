@@ -2,7 +2,8 @@
 import os
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from openai import AsyncOpenAI
+from google import genai
+from google.genai import types
 
 app = FastAPI(title="THESIS AI")
 
@@ -22,44 +23,38 @@ def health():
     return {"status": "ok"}
 
 @app.post("/chat")
-async def chat(request: ChatRequest):
-    api_key = os.getenv("OPENAI_API_KEY")
+def chat(request: ChatRequest):
+    api_key = os.getenv("GEMINI_API_KEY")
 
     if not api_key:
         raise HTTPException(
             status_code=503,
-            detail="AI API key not configured"
+            detail="Gemini API key not configured"
         )
 
     try:
-        client = AsyncOpenAI(api_key=api_key)
+        client = genai.Client(api_key=api_key)
 
-        response = await client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {
-                    "role": "system",
-                    "content": (
-                        "You are THESIS AI, an investment "
-                        "research assistant. Respond in "
-                        "Vietnamese. Explain financial "
-                        "analysis, risks, and uncertainty. "
-                        "Never guarantee investment returns."
-                    )
-                },
-                {
-                    "role": "user",
-                    "content": request.message
-                }
-            ]
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=request.message,
+            config=types.GenerateContentConfig(
+                system_instruction=(
+                    "You are THESIS AI, a Vietnamese "
+                    "investment research assistant. "
+                    "Explain financial concepts clearly, "
+                    "analyze risks and uncertainty, and "
+                    "never guarantee investment returns."
+                )
+            )
         )
 
         return {
-            "reply": response.choices[0].message.content
+            "reply": response.text
         }
 
     except Exception:
         raise HTTPException(
             status_code=502,
-            detail="AI provider request failed"
+            detail="Gemini API request failed"
         )
