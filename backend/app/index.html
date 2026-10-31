@@ -940,8 +940,14 @@ async function getCloudMessages(conversationId) {
   );
 }
 
+
 loadChats();
-if (token) $("loginOverlay").style.display = "none";
+
+if (token) {
+  $("loginOverlay").style.display = "none";
+  loadCloudHistory();
+}
+
 </script>
 </body>
 </html>
