@@ -3,519 +3,165 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b0f14">
 <title>THESIS AI — Private Intelligence</title>
 <style>
-:root {
-  color-scheme: dark;
-  --bg: #0b0f14;
-  --side: #10161d;
-  --panel: #151d26;
-  --border: #28333f;
-  --text: #eef4f2;
-  --muted: #93a3af;
-  --mint: #74edbe;
+:root{color-scheme:dark;--bg:#0b0f14;--side:#10161d;--panel:#151d26;--border:#28333f;--text:#eef4f2;--muted:#93a3af;--mint:#f0ca86}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,textarea,input{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.5;cursor:wait}
+.app{display:flex;height:100dvh;overflow:hidden}
+.sidebar{width:278px;flex:0 0 278px;background:var(--side);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:20px 12px}
+.logo{font-size:21px;letter-spacing:2px;font-weight:800;padding:8px}
+.logo span{color:var(--mint)}
+.subtitle{color:var(--muted);font-size:11px;letter-spacing:1px;padding:0 8px 22px}
+.action{width:100%;background:transparent;color:var(--text);border:1px solid var(--border);border-radius:20px;padding:12px;text-align:left}
+.action:hover,.chat-item:hover{background:#1c2731}
+.section-label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:1.3px;padding:24px 8px 10px}
+.history{flex:1;overflow-y:auto}
+.chat-item{padding:12px;margin:3px 0;border-radius:10px;font-size:13px;color:#bccbd3;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border:1px solid transparent}
+.chat-item.active{color:var(--mint);background:#332c1b;border-color:#6b5830}
+.sidebar-footer{border-top:1px solid var(--border);padding-top:12px;display:grid;gap:8px}
+.small{font-size:12px;color:var(--muted)}
+.workspace{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{height:66px;flex:0 0 66px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 22px}
+.top-title{font-size:15px;font-weight:650;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.top-actions{display:flex;align-items:center;gap:8px}
+.icon-btn{background:transparent;color:var(--muted);border:1px solid var(--border);padding:9px 11px;border-radius:10px}
+.status{color:var(--mint);font-size:12px}
+.messages{flex:1;overflow-y:auto;padding:24px 18px}
+.messages-inner{max-width:830px;margin:auto;display:flex;flex-direction:column;gap:23px}
+.welcome{text-align:center;margin:max(60px,12vh) auto 30px}
+.orb{display:inline-flex;justify-content:center;align-items:center;width:72px;height:72px;border-radius:24px;background:linear-gradient(145deg,#594b2d,#1f1c14);color:var(--mint);font-size:38px;border:1px solid #806b3e}
+.welcome h1{font-size:32px;margin:24px 0 8px}
+.welcome p{color:var(--muted);line-height:1.6}
+.suggestions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:28px auto 0;max-width:580px}
+.suggestion{text-align:left;background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:20px;padding:15px;line-height:1.5}
+.suggestion:hover{border-color:var(--mint)}
+.message{display:flex;gap:14px;align-items:flex-start;min-width:0}
+.avatar{flex:0 0 33px;height:33px;width:33px;border-radius:11px;display:grid;place-items:center;background:#4a3e26;color:var(--mint);font-weight:bold}
+.user-msg .avatar{background:#263543;color:#d5e5ee}
+.message-content{flex:1;min-width:0;line-height:1.7;overflow-wrap:anywhere}
+.message-role{font-size:12px;color:var(--muted);margin-bottom:5px}
+.user-msg .message-content{background:#172630;border:1px solid var(--border);border-radius:14px;padding:12px 16px;white-space:pre-wrap}
+.markdown p{margin:0 0 12px}
+.markdown h2,.markdown h3{line-height:1.4;margin:16px 0 10px}
+.markdown h2{font-size:19px}
+.markdown h3{font-size:16px}
+.markdown .list-line{margin:4px 0 4px 14px}
+.markdown blockquote{margin:12px 0;border-left:3px solid var(--mint);padding-left:12px;color:#bed0d1}
+.markdown code{background:#23303c;border-radius:5px;padding:2px 5px;font-family:ui-monospace,monospace;font-size:13px}
+.markdown pre{overflow-x:auto;padding:16px;border:1px solid var(--border);border-radius:12px;background:#080d12;margin:12px 0}
+.markdown pre code{background:transparent;padding:0;white-space:pre}
+.markdown strong{color:#fff}
+.markdown hr{border:0;border-top:1px solid var(--border);margin:18px 0}
+.composer-area{padding:12px 18px calc(12px + env(safe-area-inset-bottom))}
+.composer{max-width:830px;margin:auto;display:flex;gap:12px;align-items:flex-end;background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:10px}
+.composer:focus-within{border-color:#806b3e}
+textarea{flex:1;min-width:0;border:0;outline:none;resize:none;color:var(--text);background:transparent;padding:10px;font-size:16px;line-height:1.5;max-height:180px}
+.send{height:43px;width:43px;flex-shrink:0;border:0;border-radius:13px;color:#241b09;background:var(--mint);font-size:22px}
+.footer-text{text-align:center;color:var(--muted);font-size:10px;margin-top:10px}
+.overlay{position:fixed;inset:0;z-index:30;background:#0b0f14;display:grid;place-items:center;padding:20px}
+.login{width:100%;max-width:390px;border:1px solid var(--border);border-radius:24px;background:var(--panel);padding:30px 25px;text-align:center}
+.login h1{margin-bottom:5px}
+.login p{color:var(--muted)}
+.login input{width:100%;border-radius:12px;padding:15px;margin:18px 0 12px;border:1px solid var(--border);background:#0b0f14;color:white;font-size:16px}
+.primary{width:100%;border:0;border-radius:12px;padding:14px;background:var(--mint);font-weight:bold;color:#241b09}
+.error{color:#ff9d9d;font-size:13px}
+.menu-btn{display:none}
+.scrim{display:none}
+@media(max-width:760px){
+.sidebar{position:fixed;z-index:20;top:0;bottom:0;left:0;transform:translateX(-100%);transition:transform .2s;width:min(82vw,300px)}
+.sidebar.open{transform:translateX(0)}
+.scrim.show{display:block;position:fixed;inset:0;z-index:19;background:#0009}
+.menu-btn{display:inline-block}
+.topbar{padding:0 12px}
+.top-title{flex:1}
+.status{display:none}
+.messages{padding:18px 13px}
+.message{gap:9px}
+.avatar{flex-basis:29px;width:29px;height:29px}
+.suggestions{grid-template-columns:1fr}
+.composer-area{padding-left:10px;padding-right:10px}
+.welcome h1{font-size:27px}
 }
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
-}
-button, textarea, input { font: inherit; }
-button { cursor: pointer; }
-button:disabled { opacity: .5; cursor: wait; }
-button:focus-visible, input:focus-visible,
-textarea:focus-visible {
-  outline: 2px solid var(--mint);
-  outline-offset: 2px;
-}
-.app {
-  display: flex;
-  height: 100dvh;
-  overflow: hidden;
-}
-.sidebar {
-  width: 278px;
-  flex: 0 0 278px;
-  background: var(--side);
-  border-right: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  padding: 20px 12px;
-}
-.logo {
-  font-size: 21px;
-  letter-spacing: 2px;
-  font-weight: 800;
-  padding: 8px;
-}
-.logo span { color: var(--mint); }
-.subtitle {
-  color: var(--muted);
-  font-size: 11px;
-  letter-spacing: 1px;
-  padding: 0 8px 22px;
-}
-.action {
-  width: 100%;
-  background: transparent;
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px;
-  text-align: left;
-}
-.action:hover, .chat-item:hover {
-  background: #1c2731;
-}
-.section-label {
-  color: var(--muted);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 1.3px;
-  padding: 24px 8px 10px;
-}
-.history {
-  flex: 1;
-  overflow-y: auto;
-}
-.chat-item {
-  padding: 12px;
-  margin: 3px 0;
-  border-radius: 10px;
-  font-size: 13px;
-  color: #bccbd3;
-  cursor: pointer;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  border: 1px solid transparent;
-}
-.chat-item.active {
-  color: var(--mint);
-  background: #18332e;
-  border-color: #28564a;
-}
-.sidebar-footer {
-  border-top: 1px solid var(--border);
-  padding-top: 12px;
-  display: grid;
-  gap: 8px;
-}
-.small {
-  font-size: 12px;
-  color: var(--muted);
-}
-.workspace {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-}
-.topbar {
-  height: 66px;
-  flex: 0 0 66px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 0 22px;
-}
-.top-title {
-  font-size: 15px;
-  font-weight: 650;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.top-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.icon-btn {
-  background: transparent;
-  color: var(--muted);
-  border: 1px solid var(--border);
-  padding: 9px 11px;
-  border-radius: 10px;
-}
-.status {
-  color: var(--mint);
-  font-size: 12px;
-}
-.messages {
-  flex: 1;
-  overflow-y: auto;
-  padding: 24px 18px;
-}
-.messages-inner {
-  max-width: 830px;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 23px;
-}
-.welcome {
-  text-align: center;
-  margin: max(60px, 12vh) auto 30px;
-}
-.orb {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 72px;
-  height: 72px;
-  border-radius: 24px;
-  background: linear-gradient(145deg,#1c564b,#10221f);
-  color: var(--mint);
-  font-size: 38px;
-  border: 1px solid #327660;
-}
-.welcome h1 { font-size: 32px; margin: 24px 0 8px; }
-.welcome p { color: var(--muted); line-height: 1.6; }
-.suggestions {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 12px;
-  margin: 28px auto 0;
-  max-width: 580px;
-}
-.suggestion {
-  text-align: left;
-  background: var(--panel);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 15px;
-  line-height: 1.5;
-}
-.suggestion:hover { border-color: var(--mint); }
-.message {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-  min-width: 0;
-}
-.avatar {
-  flex: 0 0 33px;
-  height: 33px;
-  width: 33px;
-  border-radius: 11px;
-  display: grid;
-  place-items: center;
-  background: #22463c;
-  color: var(--mint);
-  font-weight: bold;
-}
-.user-msg .avatar {
-  background: #263543;
-  color: #d5e5ee;
-}
-.message-content {
-  flex: 1;
-  min-width: 0;
-  line-height: 1.7;
-  overflow-wrap: anywhere;
-}
-.message-role {
-  font-size: 12px;
-  color: var(--muted);
-  margin-bottom: 5px;
-}
-.user-msg .message-content {
-  background: #172630;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 12px 16px;
-  white-space: pre-wrap;
-}
-.markdown p { margin: 0 0 12px; }
-.markdown h2, .markdown h3 {
-  line-height: 1.4;
-  margin: 16px 0 10px;
-}
-.markdown h2 { font-size: 19px; }
-.markdown h3 { font-size: 16px; }
-.markdown .list-line { margin: 4px 0 4px 14px; }
-.markdown blockquote {
-  margin: 12px 0;
-  border-left: 3px solid var(--mint);
-  padding-left: 12px;
-  color: #bed0d1;
-}
-.markdown code {
-  background: #23303c;
-  border-radius: 5px;
-  padding: 2px 5px;
-  font-family: ui-monospace, monospace;
-  font-size: 13px;
-}
-.markdown pre {
-  overflow-x: auto;
-  padding: 16px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: #080d12;
-  margin: 12px 0;
-}
-.markdown pre code {
-  background: transparent;
-  padding: 0;
-  white-space: pre;
-}
-.markdown strong { color: #fff; }
-.markdown hr {
-  border: 0;
-  border-top: 1px solid var(--border);
-  margin: 18px 0;
-}
-.composer-area {
-  padding: 12px 18px calc(12px + env(safe-area-inset-bottom));
-}
-.composer-wrap { max-width: 830px; margin: auto; }
-.composer {
-  display: flex;
-  gap: 12px;
-  align-items: flex-end;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 19px;
-  padding: 10px;
-}
-.composer:focus-within { border-color: #397e69; }
-textarea {
-  flex: 1;
-  min-width: 0;
-  border: 0;
-  outline: none;
-  resize: none;
-  color: var(--text);
-  background: transparent;
-  padding: 10px;
-  font-size: 16px;
-  line-height: 1.5;
-  max-height: 180px;
-}
-.send {
-  height: 43px;
-  width: 43px;
-  flex-shrink: 0;
-  border: 0;
-  border-radius: 13px;
-  color: #092118;
-  background: var(--mint);
-  font-size: 22px;
-}
-.footer-text {
-  text-align: center;
-  color: var(--muted);
-  font-size: 10px;
-  margin-top: 10px;
-}
-.overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 30;
-  background: #0b0f14;
-  display: grid;
-  place-items: center;
-  padding: 20px;
-}
-.login {
-  width: 100%;
-  max-width: 390px;
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  background: var(--panel);
-  padding: 30px 25px;
-  text-align: center;
-}
-.login h1 { margin-bottom: 5px; }
-.login p { color: var(--muted); }
-.login input {
-  width: 100%;
-  border-radius: 12px;
-  padding: 15px;
-  margin: 18px 0 12px;
-  border: 1px solid var(--border);
-  background: #0b0f14;
-  color: white;
-  font-size: 16px;
-}
-.primary {
-  width: 100%;
-  border: 0;
-  border-radius: 12px;
-  padding: 14px;
-  background: var(--mint);
-  font-weight: bold;
-  color: #062014;
-}
-.error { color: #ff9d9d; font-size: 13px; }
-.menu-btn { display: none; }
-.scrim { display: none; }
-@media(max-width: 760px) {
-  .sidebar {
-    position: fixed;
-    z-index: 20;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    transform: translateX(-100%);
-    transition: transform .2s;
-    width: min(82vw, 300px);
-  }
-  .sidebar.open { transform: translateX(0); }
-  .scrim.show {
-    display: block;
-    position: fixed;
-    inset: 0;
-    z-index: 19;
-    background: #0009;
-  }
-  .menu-btn { display: inline-block; }
-  .topbar { padding: 0 12px; }
-  .top-title { flex: 1; }
-  .status { display: none; }
-  .messages { padding: 18px 13px; }
-  .message { gap: 9px; }
-  .avatar { flex-basis: 29px; width: 29px; height: 29px; }
-  .suggestions { grid-template-columns: 1fr; }
-  .composer-area { padding-left: 10px; padding-right: 10px; }
-  .welcome h1 { font-size: 27px; }
-}
-
-/* THESIS_AUTO_UPGRADE_START */
-:root {
-  --accent: #f0ca86;
-  --mint: #f0ca86;
-}
-.suggestion {
-  border-radius: 20px;
-  padding: 15px;
-}
-.composer {
-  border-radius: 20px;
-}
-.action {
-  border-radius: 20px;
-}
-/* THESIS_AUTO_UPGRADE_END */
-
 </style>
 </head>
 <body>
-
 <div class="app">
-  <aside class="sidebar" id="sidebar">
-    <div class="logo">THESIS <span>AI</span></div>
-    <div class="subtitle">PRIVATE INVESTMENT INTELLIGENCE</div>
-    <button class="action" id="newChat">＋ Chat mới</button>
-    <div class="section-label">Lịch sử trò chuyện</div>
-    <div class="history" id="historyList"></div>
-    <div class="sidebar-footer">
-      <button class="action" id="renameChat">✎ Đổi tên chat</button>
-      <button class="action" id="exportChat">↓ Sao lưu lịch sử</button>
-      <button class="action" id="deleteChat">⌫ Xóa chat hiện tại</button>
-      <button class="action" id="lockBtn">♢ Khóa THESIS AI</button>
-      <div class="small">Lịch sử lưu trên thiết bị này</div>
-    </div>
-  </aside>
-
-  <div class="scrim" id="scrim"></div>
-
-  <section class="workspace">
-    <header class="topbar">
-      <button class="icon-btn menu-btn" id="menuBtn">☰</button>
-      <div class="top-title" id="chatTitle">THESIS AI</div>
-      <div class="top-actions">
-        <div class="status">● Gemini connected</div>
-        <button class="icon-btn" id="topNewChat" title="Chat mới">＋</button>
-      </div>
-    </header>
-
-    <div class="messages" id="messages">
-      <div class="messages-inner" id="messagesInner"></div>
-    </div>
-
-    <div class="composer-area">
-      <form class="composer" id="chatForm">
-        <textarea id="prompt" rows="1"
-          placeholder="Nhắn tin cho THESIS AI..."
-          required></textarea>
-        <button class="send" id="sendBtn" type="submit">↑</button>
-      </form>
-      <div class="footer-text">
-        THESIS AI có thể sai. Hãy kiểm chứng thông tin đầu tư.
-      </div>
-    </div>
-  </section>
+<aside class="sidebar" id="sidebar">
+<div class="logo">THESIS <span>AI</span></div>
+<div class="subtitle">PRIVATE INVESTMENT INTELLIGENCE</div>
+<button class="action" id="newChat">＋ Chat mới</button>
+<div class="section-label">Lịch sử trò chuyện</div>
+<div class="history" id="historyList"></div>
+<div class="sidebar-footer">
+<button class="action" id="renameChat">✎ Đổi tên chat</button>
+<button class="action" id="exportChat">↓ Sao lưu lịch sử</button>
+<button class="action" id="deleteChat">⌫ Xóa chat hiện tại</button>
+<button class="action" id="syncChat">↻ Đồng bộ Cloud</button>
+<button class="action" id="lockBtn">♢ Khóa THESIS AI</button>
+<div class="small" id="syncStatus">Lịch sử cũ vẫn được giữ trên thiết bị</div>
 </div>
-
+</aside>
+<div class="scrim" id="scrim"></div>
+<section class="workspace">
+<header class="topbar">
+<button class="icon-btn menu-btn" id="menuBtn">☰</button>
+<div class="top-title" id="chatTitle">THESIS AI</div>
+<div class="top-actions">
+<div class="status">● Gemini connected</div>
+<button class="icon-btn" id="topNewChat" title="Chat mới">＋</button>
+</div>
+</header>
+<div class="messages" id="messages">
+<div class="messages-inner" id="messagesInner"></div>
+</div>
+<div class="composer-area">
+<form class="composer" id="chatForm">
+<textarea id="prompt" rows="1" placeholder="Nhắn tin cho THESIS AI..." required></textarea>
+<button class="send" id="sendBtn" type="submit">↑</button>
+</form>
+<div class="footer-text">THESIS AI có thể sai. Hãy kiểm chứng thông tin đầu tư.</div>
+</div>
+</section>
+</div>
 <div class="overlay" id="loginOverlay">
-  <div class="login">
-    <div class="orb">✦</div>
-    <h1>THESIS AI</h1>
-    <p>Không gian trí tuệ đầu tư cá nhân</p>
-    <form id="loginForm">
-      <input type="password" id="tokenInput"
-        placeholder="Mã truy cập cá nhân"
-        autocomplete="off" required>
-      <button class="primary" type="submit">Mở THESIS AI</button>
-    </form>
-    <p class="error" id="loginError"></p>
-    <p class="small">Private access • Powered by Gemini</p>
-  </div>
+<div class="login">
+<div class="orb">✦</div>
+<h1>THESIS AI</h1>
+<p>Không gian trí tuệ đầu tư cá nhân</p>
+<form id="loginForm">
+<input type="password" id="tokenInput" placeholder="Mã truy cập cá nhân" autocomplete="off" required>
+<button class="primary" type="submit">Mở THESIS AI</button>
+</form>
+<p class="error" id="loginError"></p>
+<p class="small">Private access • Powered by Gemini</p>
 </div>
-
+</div>
 <script>
+"use strict";
+
 const $ = id => document.getElementById(id);
 const storageKey = "thesis_ai_chats_v2";
 const activeKey = "thesis_ai_active_v2";
+const cloudAPI = "/agent/conversations";
 
 let token = sessionStorage.getItem("thesis_token") || "";
 let chats = [];
 let activeId = "";
 let busy = false;
+let syncing = false;
 
-function makeId() {
-  return Date.now().toString(36) +
-    Math.random().toString(36).slice(2, 9);
-}
+const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const makeId = () => Date.now().toString(36) + Math.random().toString(36).slice(2,9);
+const currentChat = () => chats.find(c => c.id === activeId);
 
-function loadChats() {
-  try {
-    const data = JSON.parse(localStorage.getItem(storageKey) || "[]");
-    chats = Array.isArray(data) ? data : [];
-  } catch (_) {
-    chats = [];
-  }
-
-  activeId = localStorage.getItem(activeKey) || "";
-  if (!chats.some(c => c.id === activeId)) {
-    activeId = chats[0]?.id || "";
-  }
-  if (!activeId) createChat();
-  else renderAll();
-}
-
-function saveChats() {
-  try {
-    localStorage.setItem(storageKey, JSON.stringify(chats));
-    localStorage.setItem(activeKey, activeId);
-  } catch (_) {
-    alert("Không lưu được lịch sử. Bộ nhớ trình duyệt có thể đã đầy.");
-  }
-}
-
-function currentChat() {
-  return chats.find(c => c.id === activeId);
+function status(text) {
+  $("syncStatus").textContent = text;
 }
 
 function closeMenu() {
@@ -523,14 +169,50 @@ function closeMenu() {
   $("scrim").classList.remove("show");
 }
 
+function saveChats() {
+  try {
+    localStorage.setItem(storageKey, JSON.stringify(chats));
+    localStorage.setItem(activeKey, activeId);
+  } catch(e) {
+    status("⚠️ Không lưu được dữ liệu trên thiết bị");
+  }
+}
+
+function loadChats() {
+  try {
+    const value = JSON.parse(localStorage.getItem(storageKey) || "[]");
+    chats = Array.isArray(value) ? value : [];
+  } catch(e) {
+    chats = [];
+  }
+
+  for(const c of chats) {
+    if(!Array.isArray(c.messages)) c.messages = [];
+    if(uuidPattern.test(c.id) && !c.cloudId) c.cloudId = c.id;
+  }
+
+  activeId = localStorage.getItem(activeKey) || "";
+
+  if(!chats.some(c => c.id === activeId)) {
+    activeId = chats[0]?.id || "";
+  }
+
+  if(!activeId) createChat();
+  else renderAll();
+}
+
 function createChat() {
-  if (busy) return;
+  if(busy) return;
+
   const c = {
     id: makeId(),
     title: "Cuộc trò chuyện mới",
     messages: [],
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
+    cloudId: null,
+    syncedCount: 0
   };
+
   chats.unshift(c);
   activeId = c.id;
   saveChats();
@@ -538,49 +220,57 @@ function createChat() {
   closeMenu();
 }
 
-function switchChat(id) {
-  if (busy) return;
+async function switchChat(id) {
+  if(busy) return;
+
   activeId = id;
   saveChats();
   renderAll();
   closeMenu();
+
+  const c = currentChat();
+  if(!c || !c.cloudId) return;
+
+  try {
+    await reconcileChat(c);
+    if(activeId === id) renderAll();
+  } catch(e) {
+    status("⚠️ Chưa tải được tin nhắn Cloud");
+  }
 }
 
 function escapeHTML(value) {
   return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#39;");
 }
 
 function inlineMarkdown(value) {
-  let s = escapeHTML(value);
-  s = s.replace(/`([^`\n]+)`/g, "<code>$1</code>");
-  s = s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
-  s = s.replace(/\*(.+?)\*/g, "<em>$1</em>");
-  return s;
+  return escapeHTML(value)
+    .replace(/`([^`\n]+)`/g,"<code>$1</code>")
+    .replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>")
+    .replace(/\*(.+?)\*/g,"<em>$1</em>");
 }
 
 function markdownHTML(text) {
   const lines = String(text).split("\n");
-  let html = "";
-  let code = [];
-  let inCode = false;
-  let para = [];
+  let html = "", code = [], inCode = false, para = [];
 
-  function flushParagraph() {
-    if (para.length) {
+  const flush = () => {
+    if(para.length) {
       html += "<p>" + para.map(inlineMarkdown).join("<br>") + "</p>";
       para = [];
     }
-  }
+  };
 
-  for (const line of lines) {
-    if (/^\s*```/.test(line)) {
-      flushParagraph();
-      if (!inCode) {
+  for(const line of lines) {
+    if(/^\s*```/.test(line)) {
+      flush();
+
+      if(!inCode) {
         inCode = true;
         code = [];
       } else {
@@ -591,48 +281,54 @@ function markdownHTML(text) {
       }
       continue;
     }
-    if (inCode) {
+
+    if(inCode) {
       code.push(line);
       continue;
     }
-    const trimmed = line.trim();
-    if (!trimmed) {
-      flushParagraph();
-    } else if (/^###?\s+/.test(trimmed)) {
-      flushParagraph();
-      const level = trimmed.startsWith("### ") ? 3 : 2;
-      const value = trimmed.replace(/^###?\s+/, "");
-      html += "<h" + level + ">" +
-        inlineMarkdown(value) +
-        "</h" + level + ">";
-    } else if (/^[-*]\s+/.test(trimmed)) {
-      flushParagraph();
+
+    const t = line.trim();
+
+    if(!t) {
+      flush();
+    } else if(/^###?\s+/.test(t)) {
+      flush();
+      const n = t.startsWith("### ") ? 3 : 2;
+      html += "<h" + n + ">" +
+        inlineMarkdown(t.replace(/^###?\s+/,"")) +
+        "</h" + n + ">";
+    } else if(/^[-*]\s+/.test(t)) {
+      flush();
       html += '<div class="list-line">• ' +
-        inlineMarkdown(trimmed.slice(2)) + "</div>";
-    } else if (/^\d+\.\s+/.test(trimmed)) {
-      flushParagraph();
+        inlineMarkdown(t.slice(2)) + "</div>";
+    } else if(/^\d+\.\s+/.test(t)) {
+      flush();
       html += '<div class="list-line">' +
-        inlineMarkdown(trimmed) + "</div>";
-    } else if (trimmed.startsWith("> ")) {
-      flushParagraph();
+        inlineMarkdown(t) + "</div>";
+    } else if(t.startsWith("> ")) {
+      flush();
       html += "<blockquote>" +
-        inlineMarkdown(trimmed.slice(2)) + "</blockquote>";
-    } else if (/^---+$/.test(trimmed)) {
-      flushParagraph();
+        inlineMarkdown(t.slice(2)) + "</blockquote>";
+    } else if(/^---+$/.test(t)) {
+      flush();
       html += "<hr>";
     } else {
       para.push(line);
     }
   }
-  flushParagraph();
-  if (inCode) {
+
+  flush();
+
+  if(inCode) {
     html += "<pre><code>" +
-      escapeHTML(code.join("\n")) + "</code></pre>";
+      escapeHTML(code.join("\n")) +
+      "</code></pre>";
   }
+
   return html;
 }
 
-function addMessage(text, role) {
+function addMessage(text,role) {
   const wrap = document.createElement("div");
   wrap.className = "message " +
     (role === "user" ? "user-msg" : "ai-msg");
@@ -650,7 +346,8 @@ function addMessage(text, role) {
   body.appendChild(label);
 
   const content = document.createElement("div");
-  if (role === "user") {
+
+  if(role === "user") {
     content.textContent = text;
   } else {
     content.className = "markdown";
@@ -658,10 +355,10 @@ function addMessage(text, role) {
   }
 
   body.appendChild(content);
-  wrap.appendChild(avatar);
-  wrap.appendChild(body);
+  wrap.append(avatar,body);
   $("messagesInner").appendChild(wrap);
   $("messages").scrollTop = $("messages").scrollHeight;
+
   return content;
 }
 
@@ -691,9 +388,10 @@ function renderWelcome() {
   `;
 
   $("messagesInner").appendChild(welcome);
-  welcome.querySelectorAll("[data-prompt]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      $("prompt").value = btn.dataset.prompt;
+
+  welcome.querySelectorAll("[data-prompt]").forEach(b => {
+    b.addEventListener("click", () => {
+      $("prompt").value = b.dataset.prompt;
       $("prompt").focus();
     });
   });
@@ -701,52 +399,34 @@ function renderWelcome() {
 
 function renderHistory() {
   $("historyList").replaceChildren();
-  for (const chat of chats) {
+
+  for(const c of chats) {
     const item = document.createElement("div");
     item.className = "chat-item" +
-      (chat.id === activeId ? " active" : "");
-    item.textContent = chat.title || "Cuộc trò chuyện";
+      (c.id === activeId ? " active" : "");
+
+    item.textContent = (c.cloudId ? "☁ " : "◌ ") +
+      (c.title || "Cuộc trò chuyện");
+
     item.title = item.textContent;
-    item.addEventListener("click", () => switchChat(chat.id));
+    item.addEventListener("click", () => switchChat(c.id));
     $("historyList").appendChild(item);
   }
 }
 
-async function loadCloudHistory() {
-  try {
-    const data = await getCloudConversations();
-
-    for (const item of data.conversations || []) {
-      if (chats.some(c => c.id === item.id)) continue;
-
-      chats.push({
-        id: item.id,
-        title: item.title,
-        messages: [],
-        createdAt: item.created_at,
-        cloudLoaded: false
-      });
-    }
-
-    saveChats();
-    renderHistory();
-
-    console.log("Đã tải danh sách chat Neon Cloud");
-  } catch (error) {
-    console.error("Không tải được Cloud:", error);
-  }
-}
-
 function renderAll() {
-  const chat = currentChat();
-  if (!chat) return;
+  const c = currentChat();
+  if(!c) return;
 
-  $("chatTitle").textContent = chat.title;
+  $("chatTitle").textContent = c.title;
   $("messagesInner").replaceChildren();
 
-  if (!chat.messages.length) renderWelcome();
-  else for (const msg of chat.messages) {
-    addMessage(msg.text, msg.role);
+  if(!c.messages.length) {
+    renderWelcome();
+  } else {
+    for(const m of c.messages) {
+      addMessage(m.text,m.role);
+    }
   }
 
   renderHistory();
@@ -760,195 +440,410 @@ function lock() {
   closeMenu();
 }
 
-$("loginForm").addEventListener("submit", event => {
-  event.preventDefault();
-  token = $("tokenInput").value.trim();
-  if (!token) return;
+async function cloudRequest(path,options={}) {
+  if(!token) throw new Error("Chưa đăng nhập");
 
-  sessionStorage.setItem("thesis_token", token);
-  $("tokenInput").value = "";
-  $("loginError").textContent = "";
-  $("loginOverlay").style.display = "none";
-  loadCloudHistory();
-  });
-
-$("chatForm").addEventListener("submit", async event => {
-  event.preventDefault();
-  if (busy || !token) return;
-
-  const text = $("prompt").value.trim();
-  if (!text) return;
-
-  const chat = currentChat();
-  if (!chat) return;
-
-  busy = true;
-  $("sendBtn").disabled = true;
-
-  const previous = chat.messages.slice(-16).map(m => ({
-    role: m.role,
-    text: m.text
-  }));
-
-  if (!chat.messages.length) {
-    chat.title = text.slice(0, 42);
-  }
-
-  chat.messages.push({ role: "user", text });
-  saveChats();
-  renderAll();
-
-  $("prompt").value = "";
-  $("prompt").style.height = "auto";
-  const thinking = addMessage("Đang phân tích...", "model");
+  let response;
 
   try {
-    const response = await fetch("/agent/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-thesis-token": token
-      },
-      body: JSON.stringify({
-        message: text,
-        history: previous
-      })
+    response = await fetch(path,{
+      ...options,
+      headers:{
+        "Content-Type":"application/json",
+        "x-thesis-token":token,
+        ...(options.headers || {})
+      }
     });
-
-    if (response.status === 401) {
-      lock();
-      throw new Error("Mã truy cập không hợp lệ.");
-    }
-    if (!response.ok) {
-      throw new Error("Máy chủ trả lỗi " + response.status);
-    }
-
-    const data = await response.json();
-    const reply = data.reply || "Không nhận được câu trả lời.";
-
-    chat.messages.push({ role: "model", text: reply });
-    saveChats();
-    renderAll();
-
-  } catch (error) {
-    thinking.textContent = "Lỗi: " + error.message;
-  } finally {
-    busy = false;
-    $("sendBtn").disabled = false;
-  }
-});
-
-$("newChat").addEventListener("click", createChat);
-$("topNewChat").addEventListener("click", createChat);
-$("lockBtn").addEventListener("click", lock);
-
-$("menuBtn").addEventListener("click", () => {
-  $("sidebar").classList.toggle("open");
-  $("scrim").classList.toggle("show");
-});
-$("scrim").addEventListener("click", closeMenu);
-
-$("renameChat").addEventListener("click", () => {
-  const c = currentChat();
-  if (!c || busy) return;
-
-  const name = prompt("Tên cuộc trò chuyện:", c.title);
-  if (name && name.trim()) {
-    c.title = name.trim().slice(0, 80);
-    saveChats();
-    renderAll();
-  }
-});
-
-$("deleteChat").addEventListener("click", () => {
-  if (busy) return;
-  if (!confirm("Xóa cuộc trò chuyện này?")) return;
-
-  chats = chats.filter(c => c.id !== activeId);
-  activeId = chats[0]?.id || "";
-  if (!activeId) createChat();
-  else {
-    saveChats();
-    renderAll();
-  }
-  closeMenu();
-});
-
-$("exportChat").addEventListener("click", () => {
-  const data = JSON.stringify(chats, null, 2);
-  const blob = new Blob([data], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = "thesis-ai-backup.json";
-  link.click();
-  URL.revokeObjectURL(url);
-});
-
-$("prompt").addEventListener("input", () => {
-  $("prompt").style.height = "auto";
-  $("prompt").style.height =
-    Math.min($("prompt").scrollHeight, 180) + "px";
-});
-
-$("prompt").addEventListener("keydown", event => {
-  if (event.key === "Enter" && !event.shiftKey &&
-      !event.isComposing && window.innerWidth > 760) {
-    event.preventDefault();
-    $("chatForm").requestSubmit();
-  }
-});
-
-const cloudAPI = "/agent/conversations";
-
-async function cloudRequest(path, options = {}) {
-  if (!token) {
-    throw new Error("Chưa đăng nhập THESIS AI");
+  } catch(e) {
+    throw new Error("Mất kết nối mạng");
   }
 
-  const response = await fetch(path, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      "x-thesis-token": token,
-      ...(options.headers || {})
-    }
-  });
-
-  if (response.status === 401) {
+  if(response.status === 401) {
     lock();
     throw new Error("Mã truy cập không hợp lệ");
   }
 
-  if (!response.ok) {
-    throw new Error(
-      "Cloud API lỗi HTTP " + response.status
-    );
+  if(!response.ok) {
+    throw new Error("Cloud HTTP " + response.status);
   }
 
   return response.json();
 }
 
-async function getCloudConversations() {
+const cloudPath = id =>
+  cloudAPI + "/" + encodeURIComponent(id);
+
+async function cloudList() {
   return cloudRequest(cloudAPI);
 }
 
-async function getCloudMessages(conversationId) {
-  return cloudRequest(
-    cloudAPI + "/" +
-    encodeURIComponent(conversationId) +
-    "/messages"
-  );
+async function cloudMessages(id) {
+  return cloudRequest(cloudPath(id) + "/messages");
 }
 
+async function createCloud(c) {
+  if(c.cloudId) return;
+
+  const data = await cloudRequest(cloudAPI,{
+    method:"POST",
+    body:JSON.stringify({
+      title:c.title.slice(0,120)
+    })
+  });
+
+  c.cloudId = data.id;
+  c.syncedCount = 0;
+  saveChats();
+}
+
+async function renameCloud(c) {
+  if(!c.cloudId) return;
+
+  await cloudRequest(cloudPath(c.cloudId),{
+    method:"PATCH",
+    body:JSON.stringify({
+      title:c.title.slice(0,120)
+    })
+  });
+}
+
+async function reconcileChat(c) {
+  if(!c.cloudId) return;
+
+  const data = await cloudMessages(c.cloudId);
+
+  const remote = (data.messages || []).map(m => ({
+    role:m.role,
+    text:m.content
+  }));
+
+  const local = c.messages || [];
+
+  const same = (a,b) =>
+    a.role === b.role && a.text === b.text;
+
+  let n = 0;
+
+  while(
+    n < remote.length &&
+    n < local.length &&
+    same(remote[n],local[n])
+  ) {
+    n++;
+  }
+
+  if(n === remote.length) {
+    c.syncedCount = n;
+  } else if(n === local.length) {
+    c.messages = remote;
+    c.syncedCount = remote.length;
+  } else {
+    c.syncConflict = true;
+    status("⚠️ Hội thoại có dữ liệu khác nhau; không tự ghi đè");
+    saveChats();
+    return false;
+  }
+
+  saveChats();
+  return true;
+}
+
+async function syncOne(c) {
+  if(c.syncConflict) return false;
+
+  await createCloud(c);
+
+  const ok = await reconcileChat(c);
+  if(!ok) return false;
+
+  while(c.syncedCount < c.messages.length) {
+    const m = c.messages[c.syncedCount];
+
+    if(!m || !(["user","model"].includes(m.role))) {
+      break;
+    }
+
+    await cloudRequest(
+      cloudPath(c.cloudId) + "/messages",
+      {
+        method:"POST",
+        body:JSON.stringify({
+          role:m.role,
+          content:m.text
+        })
+      }
+    );
+
+    c.syncedCount++;
+    saveChats();
+  }
+
+  return true;
+}
+
+async function syncAll() {
+  if(syncing || !token) return;
+
+  syncing = true;
+  status("Đang đồng bộ Neon...");
+
+  try {
+    const data = await cloudList();
+    const remote = data.conversations || [];
+
+    for(const item of remote) {
+      let c = chats.find(x =>
+        x.cloudId === item.id || x.id === item.id
+      );
+
+      if(!c) {
+        c = {
+          id:item.id,
+          cloudId:item.id,
+          title:item.title,
+          messages:[],
+          createdAt:item.created_at,
+          syncedCount:0
+        };
+        chats.push(c);
+      } else if(c.messages.length === 0) {
+        c.title = item.title;
+      }
+    }
+
+    saveChats();
+    renderHistory();
+
+    let errors = 0;
+
+    for(const c of chats) {
+      try {
+        const ok = await syncOne(c);
+        if(!ok) errors++;
+      } catch(e) {
+        errors++;
+        console.warn("Sync error:",e.message);
+        if(!token) break;
+      }
+    }
+
+    saveChats();
+    renderAll();
+
+    status(
+      errors
+        ? "⚠️ " + errors +
+          " chat chưa đồng bộ; dữ liệu vẫn ở máy"
+        : "✓ Đã đồng bộ Neon Cloud"
+    );
+  } catch(e) {
+    status("⚠️ Cloud chưa kết nối: " + e.message);
+  } finally {
+    syncing = false;
+  }
+}
+
+$("loginForm").addEventListener("submit",async event => {
+  event.preventDefault();
+
+  token = $("tokenInput").value.trim();
+  if(!token) return;
+
+  sessionStorage.setItem("thesis_token",token);
+  $("tokenInput").value = "";
+  $("loginError").textContent = "";
+  $("loginOverlay").style.display = "none";
+
+  await syncAll();
+});
+
+$("chatForm").addEventListener("submit",async event => {
+  event.preventDefault();
+  if(busy || !token) return;
+
+  const text = $("prompt").value.trim();
+  if(!text) return;
+
+  const c = currentChat();
+  if(!c) return;
+
+  busy = true;
+  $("sendBtn").disabled = true;
+
+  const previous = c.messages.slice(-16).map(m => ({
+    role:m.role,
+    text:m.text
+  }));
+
+  if(!c.messages.length) {
+    c.title = text.slice(0,42);
+  }
+
+  c.messages.push({
+    role:"user",
+    text
+  });
+
+  saveChats();
+  renderAll();
+
+  $("prompt").value = "";
+  $("prompt").style.height = "auto";
+
+  const thinking = addMessage("Đang phân tích...","model");
+
+  try {
+    const response = await fetch("/agent/chat",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "x-thesis-token":token
+      },
+      body:JSON.stringify({
+        message:text,
+        history:previous
+      })
+    });
+
+    if(response.status === 401) {
+      lock();
+      throw new Error("Mã truy cập không hợp lệ");
+    }
+
+    if(!response.ok) {
+      throw new Error(
+        "Máy chủ trả lỗi " + response.status
+      );
+    }
+
+    const data = await response.json();
+
+    c.messages.push({
+      role:"model",
+      text:data.reply || "Không nhận được câu trả lời."
+    });
+
+    saveChats();
+    renderAll();
+  } catch(e) {
+    thinking.textContent =
+      "Lỗi: " + e.message +
+      ". Tin nhắn của m đã được lưu trên thiết bị.";
+  } finally {
+    busy = false;
+    $("sendBtn").disabled = false;
+    await syncAll();
+  }
+});
+
+$("newChat").addEventListener("click",createChat);
+$("topNewChat").addEventListener("click",createChat);
+$("lockBtn").addEventListener("click",lock);
+$("syncChat").addEventListener("click",syncAll);
+
+$("menuBtn").addEventListener("click",() => {
+  $("sidebar").classList.toggle("open");
+  $("scrim").classList.toggle("show");
+});
+
+$("scrim").addEventListener("click",closeMenu);
+
+$("renameChat").addEventListener("click",async () => {
+  const c = currentChat();
+  if(!c || busy) return;
+
+  const name = prompt("Tên cuộc trò chuyện:",c.title);
+  if(!name || !name.trim()) return;
+
+  c.title = name.trim().slice(0,80);
+  saveChats();
+  renderAll();
+
+  try {
+    await renameCloud(c);
+    status("✓ Đã đổi tên Cloud");
+  } catch(e) {
+    status(
+      "⚠️ Tên mới chỉ lưu trên máy: " + e.message
+    );
+  }
+});
+
+$("deleteChat").addEventListener("click",async () => {
+  if(busy || syncing) return;
+
+  const c = currentChat();
+
+  if(!c || !confirm(
+    "Xóa cuộc trò chuyện này trên thiết bị và Neon Cloud?"
+  )) {
+    return;
+  }
+
+  if(c.cloudId) {
+    try {
+      await cloudRequest(cloudPath(c.cloudId),{
+        method:"DELETE"
+      });
+    } catch(e) {
+      alert("Chưa xóa được trên Cloud: " + e.message);
+      return;
+    }
+  }
+
+  chats = chats.filter(x => x.id !== c.id);
+  activeId = chats[0]?.id || "";
+
+  if(!activeId) {
+    createChat();
+  } else {
+    saveChats();
+    renderAll();
+  }
+
+  closeMenu();
+});
+
+$("exportChat").addEventListener("click",() => {
+  const blob = new Blob(
+    [JSON.stringify(chats,null,2)],
+    {type:"application/json"}
+  );
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+
+  a.href = url;
+  a.download = "thesis-ai-backup.json";
+  a.click();
+
+  setTimeout(() => URL.revokeObjectURL(url),1000);
+});
+
+$("prompt").addEventListener("input",() => {
+  $("prompt").style.height = "auto";
+  $("prompt").style.height =
+    Math.min($("prompt").scrollHeight,180) + "px";
+});
+
+$("prompt").addEventListener("keydown",event => {
+  if(
+    event.key === "Enter" &&
+    !event.shiftKey &&
+    !event.isComposing &&
+    window.innerWidth > 760
+  ) {
+    event.preventDefault();
+    $("chatForm").requestSubmit();
+  }
+});
 
 loadChats();
 
-if (token) {
+if(token) {
   $("loginOverlay").style.display = "none";
-  loadCloudHistory();
+  syncAll();
 }
-
 </script>
 </body>
 </html>
