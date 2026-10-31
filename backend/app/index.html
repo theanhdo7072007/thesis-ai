@@ -769,7 +769,8 @@ $("loginForm").addEventListener("submit", event => {
   $("tokenInput").value = "";
   $("loginError").textContent = "";
   $("loginOverlay").style.display = "none";
-});
+  loadCloudHistory();
+  });
 
 $("chatForm").addEventListener("submit", async event => {
   event.preventDefault();
