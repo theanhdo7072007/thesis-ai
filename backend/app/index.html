@@ -873,6 +873,48 @@ $("prompt").addEventListener("keydown", event => {
   }
 });
 
+const cloudAPI = "/agent/conversations";
+
+async function cloudRequest(path, options = {}) {
+  if (!token) {
+    throw new Error("Chưa đăng nhập THESIS AI");
+  }
+
+  const response = await fetch(path, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      "x-thesis-token": token,
+      ...(options.headers || {})
+    }
+  });
+
+  if (response.status === 401) {
+    lock();
+    throw new Error("Mã truy cập không hợp lệ");
+  }
+
+  if (!response.ok) {
+    throw new Error(
+      "Cloud API lỗi HTTP " + response.status
+    );
+  }
+
+  return response.json();
+}
+
+async function getCloudConversations() {
+  return cloudRequest(cloudAPI);
+}
+
+async function getCloudMessages(conversationId) {
+  return cloudRequest(
+    cloudAPI + "/" +
+    encodeURIComponent(conversationId) +
+    "/messages"
+  );
+}
+
 loadChats();
 if (token) $("loginOverlay").style.display = "none";
 </script>
