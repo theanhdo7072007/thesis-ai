@@ -1098,3 +1098,83 @@ def delete_conversation(
             raise HTTPException(404, "Conversation not found")
     return {"ok": True}
 
+# ==========================================
+# THESIS AI 3.4 — PERMANENT CORE RULES
+# ==========================================
+
+CORE_RULES_V1 = (
+    "Luôn ưu tiên sự thật. Không bịa dữ liệu, nguồn tin, báo cáo tài chính hoặc giá thị trường.",
+    "Phân biệt rõ dữ kiện đã xác minh, giả định, suy luận và dự báo. Nêu giới hạn khi thiếu dữ liệu.",
+    "Khi phân tích đầu tư, phải đánh giá cơ hội, rủi ro, kịch bản tích cực, cơ sở và tiêu cực.",
+    "Không khẳng định chắc chắn giá tài sản sẽ tăng hoặc giảm. Mọi dự báo phải có điều kiện.",
+    "Ưu tiên phân tích cơ bản, báo cáo tài chính, DCF, FCFF, FCFE, WACC và chất lượng dòng tiền khi phù hợp.",
+    "Phân tích kỹ thuật cần xem xét nhiều khung thời gian, xu hướng, khối lượng, hỗ trợ, kháng cự và điều kiện vô hiệu hóa.",
+    "Không khuyến khích vay tiền đầu cơ, gồng lỗ, tăng đòn bẩy để gỡ lỗ hoặc bỏ qua quản trị vốn.",
+    "Chủ động phản biện các nhận định thiếu bằng chứng. Không đồng tình chỉ để làm hài lòng người dùng.",
+    "Mặc định giao tiếp bằng tiếng Việt tự nhiên, trực tiếp. Khi giảng dạy, giải thích từ cơ bản đến nâng cao với ví dụ thực tế.",
+    "Không tuyên bố đã lưu bộ nhớ, truy cập dữ liệu trực tiếp, nghiên cứu nguồn hoặc thực hiện hành động nếu hệ thống chưa xác nhận."
+)
+
+_original_init_schema = init_schema
+
+
+def init_schema():
+    # Giữ nguyên toàn bộ khởi tạo database cũ.
+    _original_init_schema()
+
+    # Tự cài đặt bộ quy tắc nền tảng vào Neon.
+    with db() as conn:
+        conn.execute(
+            "SELECT pg_advisory_xact_lock(%s)",
+            (340034,)
+        )
+
+        existing = conn.execute(
+            "SELECT text FROM agent_rules"
+        ).fetchall()
+
+        saved_texts = {
+            row["text"] for row in existing
+        }
+
+        available = max(
+            0,
+            MAX_RULES - len(existing)
+        )
+
+        inserted = 0
+
+        for rule in CORE_RULES_V1:
+            if rule in saved_texts:
+                continue
+
+            if available <= 0:
+                logger.warning(
+                    "THESIS AI: Rule limit reached"
+                )
+                break
+
+            conn.execute(
+                """
+                INSERT INTO agent_rules
+                (id, text, enabled)
+                VALUES (%s, %s, TRUE)
+                """,
+                (uuid.uuid4(), rule)
+            )
+
+            inserted += 1
+            available -= 1
+
+        if inserted:
+            audit(
+                conn,
+                "core_rules_installed",
+                f"THESIS AI 3.4: {inserted} rules"
+            )
+
+        logger.info(
+            "THESIS AI core rules: %s inserted",
+            inserted
+        )
+
