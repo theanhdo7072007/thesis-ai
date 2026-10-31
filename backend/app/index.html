@@ -5,150 +5,480 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b0f14">
-<title>THESIS AI — Private Intelligence</title>
+<title>THESIS AI 3.5 — Private Intelligence</title>
 <style>
-:root{color-scheme:dark;--bg:#0b0f14;--side:#10161d;--panel:#151d26;--border:#28333f;--text:#eef4f2;--muted:#93a3af;--mint:#f0ca86}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-button,textarea,input{font:inherit}
-button{cursor:pointer}
-button:disabled{opacity:.5;cursor:wait}
-.app{display:flex;height:100dvh;overflow:hidden}
-.sidebar{width:278px;flex:0 0 278px;background:var(--side);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:20px 12px}
-.logo{font-size:21px;letter-spacing:2px;font-weight:800;padding:8px}
-.logo span{color:var(--mint)}
-.subtitle{color:var(--muted);font-size:11px;letter-spacing:1px;padding:0 8px 22px}
-.action{width:100%;background:transparent;color:var(--text);border:1px solid var(--border);border-radius:20px;padding:12px;text-align:left}
-.action:hover,.chat-item:hover{background:#1c2731}
-.section-label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:1.3px;padding:24px 8px 10px}
-.history{flex:1;overflow-y:auto}
-.chat-item{padding:12px;margin:3px 0;border-radius:10px;font-size:13px;color:#bccbd3;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border:1px solid transparent}
-.chat-item.active{color:var(--mint);background:#332c1b;border-color:#6b5830}
-.sidebar-footer{border-top:1px solid var(--border);padding-top:12px;display:grid;gap:8px}
-.small{font-size:12px;color:var(--muted)}
-.workspace{flex:1;min-width:0;display:flex;flex-direction:column}
-.topbar{height:66px;flex:0 0 66px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 22px}
-.top-title{font-size:15px;font-weight:650;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.top-actions{display:flex;align-items:center;gap:8px}
-.icon-btn{background:transparent;color:var(--muted);border:1px solid var(--border);padding:9px 11px;border-radius:10px}
-.status{color:var(--mint);font-size:12px}
-.messages{flex:1;overflow-y:auto;padding:24px 18px}
-.messages-inner{max-width:830px;margin:auto;display:flex;flex-direction:column;gap:23px}
-.welcome{text-align:center;margin:max(60px,12vh) auto 30px}
-.orb{display:inline-flex;justify-content:center;align-items:center;width:72px;height:72px;border-radius:24px;background:linear-gradient(145deg,#594b2d,#1f1c14);color:var(--mint);font-size:38px;border:1px solid #806b3e}
-.welcome h1{font-size:32px;margin:24px 0 8px}
-.welcome p{color:var(--muted);line-height:1.6}
-.suggestions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:28px auto 0;max-width:580px}
-.suggestion{text-align:left;background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:20px;padding:15px;line-height:1.5}
-.suggestion:hover{border-color:var(--mint)}
-.message{display:flex;gap:14px;align-items:flex-start;min-width:0}
-.avatar{flex:0 0 33px;height:33px;width:33px;border-radius:11px;display:grid;place-items:center;background:#4a3e26;color:var(--mint);font-weight:bold}
-.user-msg .avatar{background:#263543;color:#d5e5ee}
-.message-content{flex:1;min-width:0;line-height:1.7;overflow-wrap:anywhere}
-.message-role{font-size:12px;color:var(--muted);margin-bottom:5px}
-.user-msg .message-content{background:#172630;border:1px solid var(--border);border-radius:14px;padding:12px 16px;white-space:pre-wrap}
-.markdown p{margin:0 0 12px}
-.markdown h2,.markdown h3{line-height:1.4;margin:16px 0 10px}
-.markdown h2{font-size:19px}
-.markdown h3{font-size:16px}
-.markdown .list-line{margin:4px 0 4px 14px}
-.markdown blockquote{margin:12px 0;border-left:3px solid var(--mint);padding-left:12px;color:#bed0d1}
-.markdown code{background:#23303c;border-radius:5px;padding:2px 5px;font-family:ui-monospace,monospace;font-size:13px}
-.markdown pre{overflow-x:auto;padding:16px;border:1px solid var(--border);border-radius:12px;background:#080d12;margin:12px 0}
-.markdown pre code{background:transparent;padding:0;white-space:pre}
-.markdown strong{color:#fff}
-.markdown hr{border:0;border-top:1px solid var(--border);margin:18px 0}
-.composer-area{padding:12px 18px calc(12px + env(safe-area-inset-bottom))}
-.composer{max-width:830px;margin:auto;display:flex;gap:12px;align-items:flex-end;background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:10px}
-.composer:focus-within{border-color:#806b3e}
-textarea{flex:1;min-width:0;border:0;outline:none;resize:none;color:var(--text);background:transparent;padding:10px;font-size:16px;line-height:1.5;max-height:180px}
-.send{height:43px;width:43px;flex-shrink:0;border:0;border-radius:13px;color:#241b09;background:var(--mint);font-size:22px}
-.footer-text{text-align:center;color:var(--muted);font-size:10px;margin-top:10px}
-.overlay{position:fixed;inset:0;z-index:30;background:#0b0f14;display:grid;place-items:center;padding:20px}
-.login{width:100%;max-width:390px;border:1px solid var(--border);border-radius:24px;background:var(--panel);padding:30px 25px;text-align:center}
-.login h1{margin-bottom:5px}
-.login p{color:var(--muted)}
-.login input{width:100%;border-radius:12px;padding:15px;margin:18px 0 12px;border:1px solid var(--border);background:#0b0f14;color:white;font-size:16px}
-.primary{width:100%;border:0;border-radius:12px;padding:14px;background:var(--mint);font-weight:bold;color:#241b09}
-.error{color:#ff9d9d;font-size:13px}
-.menu-btn{display:none}
-.scrim{display:none}
-@media(max-width:760px){
-.sidebar{position:fixed;z-index:20;top:0;bottom:0;left:0;transform:translateX(-100%);transition:transform .2s;width:min(82vw,300px)}
-.sidebar.open{transform:translateX(0)}
-.scrim.show{display:block;position:fixed;inset:0;z-index:19;background:#0009}
-.menu-btn{display:inline-block}
-.topbar{padding:0 12px}
-.top-title{flex:1}
-.status{display:none}
-.messages{padding:18px 13px}
-.message{gap:9px}
-.avatar{flex-basis:29px;width:29px;height:29px}
-.suggestions{grid-template-columns:1fr}
-.composer-area{padding-left:10px;padding-right:10px}
-.welcome h1{font-size:27px}
+:root {
+  color-scheme: dark;
+  --bg:#0b0f14;
+  --side:#10161d;
+  --panel:#151d26;
+  --border:#28333f;
+  --text:#eef4f2;
+  --muted:#93a3af;
+  --mint:#f0ca86;
+  --err:#ffaaaa;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+button,textarea,input {font:inherit}
+button {cursor:pointer}
+button:disabled {opacity:.5;cursor:wait}
+.app {display:flex;height:100dvh;overflow:hidden}
+.sidebar {
+  width:278px;
+  flex:0 0 278px;
+  background:var(--side);
+  border-right:1px solid var(--border);
+  display:flex;
+  flex-direction:column;
+  padding:20px 12px;
+}
+.logo {
+  font-size:21px;
+  letter-spacing:2px;
+  font-weight:800;
+  padding:8px;
+}
+.logo span {color:var(--mint)}
+.subtitle {
+  color:var(--muted);
+  font-size:11px;
+  letter-spacing:1px;
+  padding:0 8px 22px;
+}
+.action {
+  width:100%;
+  background:transparent;
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:11px;
+  text-align:left;
+}
+.action:hover,.chat-item:hover {background:#1c2731}
+.section-label {
+  color:var(--muted);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:1.3px;
+  padding:20px 8px 10px;
+}
+.history {flex:1;overflow-y:auto}
+.chat-item {
+  padding:12px;
+  margin:3px 0;
+  border-radius:10px;
+  font-size:13px;
+  color:#bccbd3;
+  cursor:pointer;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  border:1px solid transparent;
+}
+.chat-item.active {
+  color:var(--mint);
+  background:#332c1b;
+  border-color:#6b5830;
+}
+.sidebar-footer {
+  border-top:1px solid var(--border);
+  padding-top:10px;
+  display:grid;
+  gap:7px;
+}
+.small {
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.5;
+}
+.workspace {
+  flex:1;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+}
+.topbar {
+  height:66px;
+  flex:0 0 66px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:0 22px;
+}
+.top-title {
+  font-size:15px;
+  font-weight:650;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.top-actions {display:flex;align-items:center;gap:8px}
+.icon-btn {
+  background:transparent;
+  color:var(--muted);
+  border:1px solid var(--border);
+  padding:9px 11px;
+  border-radius:10px;
+}
+.status {color:var(--mint);font-size:12px}
+.messages {flex:1;overflow-y:auto;padding:24px 18px}
+.messages-inner {
+  max-width:830px;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  gap:23px;
+}
+.welcome {
+  text-align:center;
+  margin:max(60px,12vh) auto 30px;
+}
+.orb {
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  width:72px;
+  height:72px;
+  border-radius:24px;
+  background:linear-gradient(145deg,#594b2d,#1f1c14);
+  color:var(--mint);
+  font-size:38px;
+  border:1px solid #806b3e;
+}
+.welcome h1 {font-size:32px;margin:24px 0 8px}
+.welcome p {color:var(--muted);line-height:1.6}
+.suggestions {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin:28px auto 0;
+  max-width:580px;
+}
+.suggestion {
+  text-align:left;
+  background:var(--panel);
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:15px;
+  line-height:1.5;
+}
+.suggestion:hover {border-color:var(--mint)}
+.message {
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+  min-width:0;
+}
+.avatar {
+  flex:0 0 33px;
+  height:33px;
+  width:33px;
+  border-radius:11px;
+  display:grid;
+  place-items:center;
+  background:#4a3e26;
+  color:var(--mint);
+  font-weight:bold;
+}
+.user-msg .avatar {
+  background:#263543;
+  color:#d5e5ee;
+}
+.message-content {
+  flex:1;
+  min-width:0;
+  line-height:1.7;
+  overflow-wrap:anywhere;
+}
+.message-role {
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:5px;
+}
+.user-msg .message-content {
+  background:#172630;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:12px 16px;
+  white-space:pre-wrap;
+}
+.markdown p {margin:0 0 12px}
+.markdown h2,.markdown h3 {
+  line-height:1.4;
+  margin:16px 0 10px;
+}
+.markdown h2 {font-size:19px}
+.markdown h3 {font-size:16px}
+.markdown .list-line {margin:4px 0 4px 14px}
+.markdown blockquote {
+  margin:12px 0;
+  border-left:3px solid var(--mint);
+  padding-left:12px;
+  color:#bed0d1;
+}
+.markdown code {
+  background:#23303c;
+  border-radius:5px;
+  padding:2px 5px;
+  font-family:ui-monospace,monospace;
+  font-size:13px;
+}
+.markdown pre {
+  overflow-x:auto;
+  padding:16px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:#080d12;
+  margin:12px 0;
+}
+.markdown pre code {
+  background:transparent;
+  padding:0;
+  white-space:pre;
+}
+.markdown strong {color:#fff}
+.composer-area {
+  padding:12px 18px calc(12px + env(safe-area-inset-bottom));
+}
+.composer {
+  max-width:830px;
+  margin:auto;
+  display:flex;
+  gap:12px;
+  align-items:flex-end;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:10px;
+}
+.composer:focus-within {border-color:#806b3e}
+textarea {
+  flex:1;
+  min-width:0;
+  border:0;
+  outline:none;
+  resize:none;
+  color:var(--text);
+  background:transparent;
+  padding:10px;
+  font-size:16px;
+  line-height:1.5;
+  max-height:180px;
+}
+.send {
+  height:43px;
+  width:43px;
+  flex-shrink:0;
+  border:0;
+  border-radius:13px;
+  color:#241b09;
+  background:var(--mint);
+  font-size:22px;
+}
+.footer-text {
+  text-align:center;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:10px;
+}
+.overlay {
+  position:fixed;
+  inset:0;
+  z-index:30;
+  background:#0b0f14;
+  display:grid;
+  place-items:center;
+  padding:20px;
+}
+.login {
+  width:100%;
+  max-width:390px;
+  border:1px solid var(--border);
+  border-radius:24px;
+  background:var(--panel);
+  padding:30px 25px;
+  text-align:center;
+}
+.login h1 {margin-bottom:5px}
+.login p {color:var(--muted)}
+.login input {
+  width:100%;
+  border-radius:12px;
+  padding:15px;
+  margin:18px 0 12px;
+  border:1px solid var(--border);
+  background:#0b0f14;
+  color:white;
+  font-size:16px;
+}
+.primary {
+  width:100%;
+  border:0;
+  border-radius:12px;
+  padding:14px;
+  background:var(--mint);
+  font-weight:bold;
+  color:#241b09;
+}
+.error {color:var(--err);font-size:13px}
+.notice {
+  max-width:830px;
+  margin:0 auto 10px;
+  color:var(--err);
+  font-size:13px;
+  line-height:1.5;
+}
+.retry {
+  font-size:12px;
+  margin-top:8px;
+  color:var(--mint);
+  background:#232c34;
+  border:1px solid #5c4f33;
+  border-radius:8px;
+  padding:6px 9px;
+}
+.menu-btn {display:none}
+.scrim {display:none}
+@media(max-width:760px) {
+  .sidebar {
+    position:fixed;
+    z-index:20;
+    top:0;
+    bottom:0;
+    left:0;
+    transform:translateX(-100%);
+    transition:transform .2s;
+    width:min(82vw,300px);
+  }
+  .sidebar.open {transform:translateX(0)}
+  .scrim.show {
+    display:block;
+    position:fixed;
+    inset:0;
+    z-index:19;
+    background:#0009;
+  }
+  .menu-btn {display:inline-block}
+  .topbar {padding:0 12px}
+  .top-title {flex:1}
+  .status {display:none}
+  .messages {padding:18px 13px}
+  .message {gap:9px}
+  .avatar {
+    flex-basis:29px;
+    width:29px;
+    height:29px;
+  }
+  .suggestions {grid-template-columns:1fr}
+  .composer-area {
+    padding-left:10px;
+    padding-right:10px;
+  }
+  .welcome h1 {font-size:27px}
 }
 </style>
 </head>
 <body>
 <div class="app">
-<aside class="sidebar" id="sidebar">
-<div class="logo">THESIS <span>AI</span></div>
-<div class="subtitle">PRIVATE INVESTMENT INTELLIGENCE</div>
-<button class="action" id="newChat">＋ Chat mới</button>
-<div class="section-label">Lịch sử trò chuyện</div>
-<div class="history" id="historyList"></div>
-<div class="sidebar-footer">
-<button class="action" id="renameChat">✎ Đổi tên chat</button>
-<button class="action" id="exportChat">↓ Sao lưu lịch sử</button>
-<button class="action" id="deleteChat">⌫ Xóa chat hiện tại</button>
-<button class="action" id="syncChat">↻ Đồng bộ Cloud</button>
-<button class="action" id="lockBtn">♢ Khóa THESIS AI</button>
-<div class="small" id="syncStatus">Lịch sử cũ vẫn được giữ trên thiết bị</div>
+  <aside class="sidebar" id="sidebar">
+    <div class="logo">THESIS <span>AI</span></div>
+    <div class="subtitle">PRIVATE INVESTMENT INTELLIGENCE · 3.5</div>
+    <button class="action" id="newChat">＋ Chat mới</button>
+    <div class="section-label">Lịch sử trò chuyện</div>
+    <div class="history" id="historyList"></div>
+    <div class="sidebar-footer">
+      <button class="action" id="renameChat">✎ Đổi tên chat</button>
+      <button class="action" id="exportChat">↓ Sao lưu lịch sử</button>
+      <button class="action" id="importChat">↑ Nhập bản sao lưu</button>
+      <input id="importFile" type="file" accept="application/json,.json" hidden>
+      <button class="action" id="deleteChat">⌫ Xóa chat hiện tại</button>
+      <button class="action" id="syncChat">↻ Đồng bộ Cloud</button>
+      <button class="action" id="lockBtn">♢ Khóa THESIS AI</button>
+      <div class="small" id="syncStatus" role="status" aria-live="polite">
+        Lịch sử cũ vẫn được giữ trên thiết bị.
+      </div>
+    </div>
+  </aside>
+
+  <div class="scrim" id="scrim"></div>
+
+  <section class="workspace">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Mở menu">☰</button>
+      <div class="top-title" id="chatTitle">THESIS AI</div>
+      <div class="top-actions">
+        <div class="status">● THESIS AI 3.5</div>
+        <button class="icon-btn" id="topNewChat" title="Chat mới">＋</button>
+      </div>
+    </header>
+
+    <div class="messages" id="messages">
+      <div class="messages-inner" id="messagesInner"></div>
+    </div>
+
+    <div class="composer-area">
+      <div class="notice" id="notice" role="alert" hidden></div>
+      <form class="composer" id="chatForm">
+        <textarea
+          id="prompt"
+          rows="1"
+          maxlength="20000"
+          placeholder="Nhắn tin cho THESIS AI..."
+          required
+        ></textarea>
+        <button class="send" id="sendBtn" type="submit" aria-label="Gửi tin nhắn">↑</button>
+      </form>
+      <div class="footer-text">
+        THESIS AI có thể sai. Hãy kiểm chứng thông tin đầu tư.
+      </div>
+    </div>
+  </section>
 </div>
-</aside>
-<div class="scrim" id="scrim"></div>
-<section class="workspace">
-<header class="topbar">
-<button class="icon-btn menu-btn" id="menuBtn">☰</button>
-<div class="top-title" id="chatTitle">THESIS AI</div>
-<div class="top-actions">
-<div class="status">● Gemini connected</div>
-<button class="icon-btn" id="topNewChat" title="Chat mới">＋</button>
-</div>
-</header>
-<div class="messages" id="messages">
-<div class="messages-inner" id="messagesInner"></div>
-</div>
-<div class="composer-area">
-<form class="composer" id="chatForm">
-<textarea id="prompt" rows="1" placeholder="Nhắn tin cho THESIS AI..." required></textarea>
-<button class="send" id="sendBtn" type="submit">↑</button>
-</form>
-<div class="footer-text">THESIS AI có thể sai. Hãy kiểm chứng thông tin đầu tư.</div>
-</div>
-</section>
-</div>
+
 <div class="overlay" id="loginOverlay">
-<div class="login">
-<div class="orb">✦</div>
-<h1>THESIS AI</h1>
-<p>Không gian trí tuệ đầu tư cá nhân</p>
-<form id="loginForm">
-<input type="password" id="tokenInput" placeholder="Mã truy cập cá nhân" autocomplete="off" required>
-<button class="primary" type="submit">Mở THESIS AI</button>
-</form>
-<p class="error" id="loginError"></p>
-<p class="small">Private access • Powered by Gemini</p>
+  <div class="login">
+    <div class="orb">✦</div>
+    <h1>THESIS AI</h1>
+    <p>Không gian trí tuệ đầu tư cá nhân</p>
+    <form id="loginForm">
+      <input
+        type="password"
+        id="tokenInput"
+        placeholder="Mã truy cập cá nhân"
+        autocomplete="off"
+        required
+      >
+      <button class="primary" type="submit">Mở THESIS AI</button>
+    </form>
+    <p class="error" id="loginError"></p>
+    <p class="small">Private access • Powered by Gemini</p>
+  </div>
 </div>
-</div>
+
 <script>
 "use strict";
 
 const $ = id => document.getElementById(id);
 const storageKey = "thesis_ai_chats_v2";
 const activeKey = "thesis_ai_active_v2";
-const cloudAPI = "/agent/conversations";
+const api = "/agent/conversations";
+
+const isUuid = s =>
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(s || "");
+
+const uid = () => crypto.randomUUID();
+
+const localId = () =>
+  Date.now().toString(36) + Math.random().toString(36).slice(2, 9);
 
 let token = sessionStorage.getItem("thesis_token") || "";
 let chats = [];
@@ -156,56 +486,91 @@ let activeId = "";
 let busy = false;
 let syncing = false;
 
-const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-const makeId = () => Date.now().toString(36) + Math.random().toString(36).slice(2,9);
 const currentChat = () => chats.find(c => c.id === activeId);
+const path = id => api + "/" + encodeURIComponent(id);
+const status = s => { $("syncStatus").textContent = s; };
 
-function status(text) {
-  $("syncStatus").textContent = text;
+
+function notice(s) {
+  $("notice").textContent = s || "";
+  $("notice").hidden = !s;
 }
+
 
 function closeMenu() {
   $("sidebar").classList.remove("open");
   $("scrim").classList.remove("show");
 }
 
-function saveChats() {
+
+function save() {
   try {
     localStorage.setItem(storageKey, JSON.stringify(chats));
     localStorage.setItem(activeKey, activeId);
-  } catch(e) {
-    status("⚠️ Không lưu được dữ liệu trên thiết bị");
+    return true;
+  } catch (e) {
+    notice(
+      "⚠️ Bộ nhớ thiết bị đầy. Hãy bấm 'Sao lưu lịch sử' ngay để tránh mất dữ liệu."
+    );
+    return false;
   }
 }
 
-function loadChats() {
-  try {
-    const value = JSON.parse(localStorage.getItem(storageKey) || "[]");
-    chats = Array.isArray(value) ? value : [];
-  } catch(e) {
-    chats = [];
+
+function prepare(c) {
+  if (!c || !Array.isArray(c.messages)) return false;
+
+  if (!c.id) c.id = localId();
+
+  if (isUuid(c.id) && !c.cloudId) {
+    c.cloudId = c.id;
   }
 
-  for(const c of chats) {
-    if(!Array.isArray(c.messages)) c.messages = [];
-    if(uuidPattern.test(c.id) && !c.cloudId) c.cloudId = c.id;
+  if (!c.title) c.title = "Cuộc trò chuyện";
+
+  if (!Number.isInteger(c.syncedCount)) {
+    c.syncedCount = 0;
+  }
+
+  for (const m of c.messages) {
+    if (!m.clientId) m.clientId = uid();
+  }
+
+  return true;
+}
+
+
+function load() {
+  try {
+    const x = JSON.parse(localStorage.getItem(storageKey) || "[]");
+
+    chats = Array.isArray(x)
+      ? x.filter(prepare)
+      : [];
+  } catch (e) {
+    chats = [];
   }
 
   activeId = localStorage.getItem(activeKey) || "";
 
-  if(!chats.some(c => c.id === activeId)) {
+  if (!chats.some(c => c.id === activeId)) {
     activeId = chats[0]?.id || "";
   }
 
-  if(!activeId) createChat();
-  else renderAll();
+  if (!activeId) {
+    newChat();
+  } else {
+    save();
+    render();
+  }
 }
 
-function createChat() {
-  if(busy) return;
+
+function newChat() {
+  if (busy || syncing) return;
 
   const c = {
-    id: makeId(),
+    id: localId(),
     title: "Cuộc trò chuyện mới",
     messages: [],
     createdAt: new Date().toISOString(),
@@ -215,103 +580,98 @@ function createChat() {
 
   chats.unshift(c);
   activeId = c.id;
-  saveChats();
-  renderAll();
+  save();
+  render();
   closeMenu();
+  notice("");
 }
 
-async function switchChat(id) {
-  if(busy) return;
 
-  activeId = id;
-  saveChats();
-  renderAll();
-  closeMenu();
-
-  const c = currentChat();
-  if(!c || !c.cloudId) return;
-
-  try {
-    await reconcileChat(c);
-    if(activeId === id) renderAll();
-  } catch(e) {
-    status("⚠️ Chưa tải được tin nhắn Cloud");
-  }
+function escapeHTML(x) {
+  return String(x)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
 }
 
-function escapeHTML(value) {
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#39;");
+
+function inlineMarkdown(x) {
+  return escapeHTML(x)
+    .replace(/`([^`\n]+)`/g, "<code>$1</code>")
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*(.+?)\*/g, "<em>$1</em>");
 }
 
-function inlineMarkdown(value) {
-  return escapeHTML(value)
-    .replace(/`([^`\n]+)`/g,"<code>$1</code>")
-    .replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>")
-    .replace(/\*(.+?)\*/g,"<em>$1</em>");
-}
 
 function markdownHTML(text) {
-  const lines = String(text).split("\n");
-  let html = "", code = [], inCode = false, para = [];
+  let out = "";
+  let para = [];
+  let code = [];
+  let fenced = false;
 
   const flush = () => {
-    if(para.length) {
-      html += "<p>" + para.map(inlineMarkdown).join("<br>") + "</p>";
+    if (para.length) {
+      out += "<p>" + para.map(inlineMarkdown).join("<br>") + "</p>";
       para = [];
     }
   };
 
-  for(const line of lines) {
-    if(/^\s*```/.test(line)) {
+  for (const line of String(text).split("\n")) {
+    const t = line.trim();
+
+    if (/^\s*```/.test(line)) {
       flush();
 
-      if(!inCode) {
-        inCode = true;
-        code = [];
-      } else {
-        html += "<pre><code>" +
+      if (fenced) {
+        out += "<pre><code>" +
           escapeHTML(code.join("\n")) +
           "</code></pre>";
-        inCode = false;
+
+        code = [];
       }
+
+      fenced = !fenced;
       continue;
     }
 
-    if(inCode) {
+    if (fenced) {
       code.push(line);
       continue;
     }
 
-    const t = line.trim();
+    if (!t) {
+      flush();
+      continue;
+    }
 
-    if(!t) {
+    if (/^###?\s/.test(t)) {
       flush();
-    } else if(/^###?\s+/.test(t)) {
-      flush();
+
       const n = t.startsWith("### ") ? 3 : 2;
-      html += "<h" + n + ">" +
-        inlineMarkdown(t.replace(/^###?\s+/,"")) +
+
+      out += "<h" + n + ">" +
+        inlineMarkdown(t.replace(/^###?\s+/, "")) +
         "</h" + n + ">";
-    } else if(/^[-*]\s+/.test(t)) {
+    } else if (/^[-*]\s/.test(t)) {
       flush();
-      html += '<div class="list-line">• ' +
-        inlineMarkdown(t.slice(2)) + "</div>";
-    } else if(/^\d+\.\s+/.test(t)) {
+
+      out += '<div class="list-line">• ' +
+        inlineMarkdown(t.slice(2)) +
+        "</div>";
+    } else if (/^\d+\.\s/.test(t)) {
       flush();
-      html += '<div class="list-line">' +
-        inlineMarkdown(t) + "</div>";
-    } else if(t.startsWith("> ")) {
+
+      out += '<div class="list-line">' +
+        inlineMarkdown(t) +
+        "</div>";
+    } else if (t.startsWith("> ")) {
       flush();
-      html += "<blockquote>" +
-        inlineMarkdown(t.slice(2)) + "</blockquote>";
-    } else if(/^---+$/.test(t)) {
-      flush();
-      html += "<hr>";
+
+      out += "<blockquote>" +
+        inlineMarkdown(t.slice(2)) +
+        "</blockquote>";
     } else {
       para.push(line);
     }
@@ -319,474 +679,693 @@ function markdownHTML(text) {
 
   flush();
 
-  if(inCode) {
-    html += "<pre><code>" +
+  if (fenced) {
+    out += "<pre><code>" +
       escapeHTML(code.join("\n")) +
       "</code></pre>";
   }
 
-  return html;
+  return out;
 }
 
-function addMessage(text,role) {
+
+function addMessage(m, c) {
   const wrap = document.createElement("div");
+
   wrap.className = "message " +
-    (role === "user" ? "user-msg" : "ai-msg");
+    (m.role === "user" ? "user-msg" : "ai-msg");
 
   const avatar = document.createElement("div");
   avatar.className = "avatar";
-  avatar.textContent = role === "user" ? "U" : "✦";
+  avatar.textContent = m.role === "user" ? "U" : "✦";
 
   const body = document.createElement("div");
   body.className = "message-content";
 
   const label = document.createElement("div");
   label.className = "message-role";
-  label.textContent = role === "user" ? "Bạn" : "THESIS AI";
-  body.appendChild(label);
+  label.textContent = m.role === "user" ? "Bạn" : "THESIS AI";
 
   const content = document.createElement("div");
 
-  if(role === "user") {
-    content.textContent = text;
+  if (m.role === "user") {
+    content.textContent = m.text;
   } else {
     content.className = "markdown";
-    content.innerHTML = markdownHTML(text);
+    content.innerHTML = markdownHTML(m.text);
   }
 
-  body.appendChild(content);
-  wrap.append(avatar,body);
-  $("messagesInner").appendChild(wrap);
-  $("messages").scrollTop = $("messages").scrollHeight;
+  body.append(label, content);
 
-  return content;
+  if (m.pending && m.role === "user") {
+    const retry = document.createElement("button");
+
+    retry.className = "retry";
+    retry.textContent = m.error
+      ? "↻ Thử gửi lại"
+      : "Đang chờ phản hồi...";
+
+    retry.disabled = !m.error || busy;
+
+    retry.addEventListener(
+      "click",
+      () => retryMessage(c.id, m.clientId)
+    );
+
+    body.appendChild(retry);
+  }
+
+  wrap.append(avatar, body);
+  $("messagesInner").appendChild(wrap);
 }
 
+
 function renderWelcome() {
-  const welcome = document.createElement("div");
-  welcome.className = "welcome";
+  const div = document.createElement("div");
+  div.className = "welcome";
 
-  welcome.innerHTML = `
-    <div class="orb">✦</div>
-    <h1>THESIS AI</h1>
-    <p>Private Investment Intelligence</p>
-    <p>Hôm nay m muốn nghiên cứu điều gì?</p>
-    <div class="suggestions">
-      <button class="suggestion" data-prompt="Giải thích phương pháp định giá DCF từng bước.">
-        ◇ Học định giá DCF
-      </button>
-      <button class="suggestion" data-prompt="Hướng dẫn phân tích báo cáo tài chính doanh nghiệp.">
-        ▤ Phân tích báo cáo tài chính
-      </button>
-      <button class="suggestion" data-prompt="Hướng dẫn quản trị rủi ro khi giao dịch BTC.">
-        ◈ Quản trị rủi ro crypto
-      </button>
-      <button class="suggestion" data-prompt="Giải thích cách xây dựng danh mục đầu tư dài hạn.">
-        ◎ Xây dựng danh mục đầu tư
-      </button>
-    </div>
-  `;
+  div.innerHTML =
+    '<div class="orb">✦</div>' +
+    '<h1>THESIS AI</h1>' +
+    '<p>Private Investment Intelligence</p>' +
+    '<p>M muốn nghiên cứu chủ đề nào?</p>' +
+    '<div class="suggestions">' +
+    '<button class="suggestion" data-p="Giải thích định giá DCF cho người mới.">◇ Định giá DCF</button>' +
+    '<button class="suggestion" data-p="Hướng dẫn phân tích báo cáo tài chính.">▤ Báo cáo tài chính</button>' +
+    '<button class="suggestion" data-p="Hướng dẫn quản trị rủi ro khi giao dịch.">◈ Quản trị rủi ro</button>' +
+    '<button class="suggestion" data-p="Cách xây dựng danh mục đầu tư dài hạn.">◎ Danh mục đầu tư</button>' +
+    '</div>';
 
-  $("messagesInner").appendChild(welcome);
+  $("messagesInner").appendChild(div);
 
-  welcome.querySelectorAll("[data-prompt]").forEach(b => {
+  div.querySelectorAll("[data-p]").forEach(b => {
     b.addEventListener("click", () => {
-      $("prompt").value = b.dataset.prompt;
+      $("prompt").value = b.dataset.p;
       $("prompt").focus();
     });
   });
 }
 
-function renderHistory() {
-  $("historyList").replaceChildren();
 
-  for(const c of chats) {
-    const item = document.createElement("div");
-    item.className = "chat-item" +
-      (c.id === activeId ? " active" : "");
-
-    item.textContent = (c.cloudId ? "☁ " : "◌ ") +
-      (c.title || "Cuộc trò chuyện");
-
-    item.title = item.textContent;
-    item.addEventListener("click", () => switchChat(c.id));
-    $("historyList").appendChild(item);
-  }
-}
-
-function renderAll() {
+function render() {
   const c = currentChat();
-  if(!c) return;
+
+  if (!c) return;
 
   $("chatTitle").textContent = c.title;
   $("messagesInner").replaceChildren();
 
-  if(!c.messages.length) {
-    renderWelcome();
-  } else {
-    for(const m of c.messages) {
-      addMessage(m.text,m.role);
+  if (c.messages.length) {
+    for (const m of c.messages) {
+      addMessage(m, c);
     }
+  } else {
+    renderWelcome();
   }
 
-  renderHistory();
+  $("historyList").replaceChildren();
+
+  for (const chat of chats) {
+    const item = document.createElement("div");
+
+    item.className = "chat-item" +
+      (chat.id === activeId ? " active" : "");
+
+    item.textContent =
+      (chat.syncConflict ? "⚠ " : chat.cloudId ? "☁ " : "◌ ") +
+      chat.title;
+
+    item.addEventListener(
+      "click",
+      () => switchChat(chat.id)
+    );
+
+    $("historyList").appendChild(item);
+  }
+
+  $("messages").scrollTop = $("messages").scrollHeight;
 }
+
 
 function lock() {
   token = "";
   sessionStorage.removeItem("thesis_token");
-  $("tokenInput").value = "";
   $("loginOverlay").style.display = "grid";
   closeMenu();
 }
 
-async function cloudRequest(path,options={}) {
-  if(!token) throw new Error("Chưa đăng nhập");
 
+async function request(url, options = {}) {
+  if (!token) {
+    throw new Error("Chưa đăng nhập");
+  }
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 115000);
   let response;
 
   try {
-    response = await fetch(path,{
+    response = await fetch(url, {
       ...options,
-      headers:{
-        "Content-Type":"application/json",
-        "x-thesis-token":token,
+      signal: controller.signal,
+      headers: {
+        "Content-Type": "application/json",
+        "x-thesis-token": token,
         ...(options.headers || {})
       }
     });
-  } catch(e) {
-    throw new Error("Mất kết nối mạng");
+  } catch (e) {
+    throw new Error(
+      e.name === "AbortError"
+        ? "Kết nối quá lâu. Hãy thử lại bằng nút ↻, không gửi trùng."
+        : "Mất kết nối mạng; tin nhắn vẫn ở thiết bị."
+    );
+  } finally {
+    clearTimeout(timer);
   }
 
-  if(response.status === 401) {
+  let data = {};
+
+  try {
+    data = await response.json();
+  } catch (e) {}
+
+  if (response.status === 401) {
     lock();
     throw new Error("Mã truy cập không hợp lệ");
   }
 
-  if(!response.ok) {
-    throw new Error("Cloud HTTP " + response.status);
+  if (!response.ok) {
+    const detail = typeof data.detail === "string"
+      ? data.detail
+      : "Yêu cầu không thành công";
+
+    throw new Error("HTTP " + response.status + ": " + detail);
   }
 
-  return response.json();
+  return data;
 }
 
-const cloudPath = id =>
-  cloudAPI + "/" + encodeURIComponent(id);
-
-async function cloudList() {
-  return cloudRequest(cloudAPI);
-}
 
 async function cloudMessages(id) {
-  return cloudRequest(cloudPath(id) + "/messages");
+  const all = [];
+  let offset = 0;
+
+  while (true) {
+    const data = await request(
+      path(id) + "/messages?offset=" + offset + "&limit=200"
+    );
+
+    const batch = data.messages || [];
+    all.push(...batch);
+
+    if (!data.has_more) {
+      return all;
+    }
+
+    if (!batch.length || all.length > 20000) {
+      throw new Error(
+        "Lịch sử quá lớn; hãy xuất bản sao lưu"
+      );
+    }
+
+    offset += batch.length;
+  }
 }
 
-async function createCloud(c) {
-  if(c.cloudId) return;
 
-  const data = await cloudRequest(cloudAPI,{
-    method:"POST",
-    body:JSON.stringify({
-      title:c.title.slice(0,120)
+async function ensureCloud(c) {
+  if (!c.cloudId) {
+    c.cloudId = uid();
+    c.cloudCreatePending = true;
+    save();
+  }
+
+  if (!c.cloudCreatePending) return;
+
+  const data = await request(api, {
+    method: "POST",
+    body: JSON.stringify({
+      id: c.cloudId,
+      title: c.title.slice(0, 120)
     })
   });
 
-  c.cloudId = data.id;
-  c.syncedCount = 0;
-  saveChats();
+  if (data.id !== c.cloudId) {
+    throw new Error("Cloud trả ID không khớp");
+  }
+
+  c.cloudCreatePending = false;
+  save();
 }
 
-async function renameCloud(c) {
-  if(!c.cloudId) return;
 
-  await cloudRequest(cloudPath(c.cloudId),{
-    method:"PATCH",
-    body:JSON.stringify({
-      title:c.title.slice(0,120)
-    })
-  });
+function same(a, b) {
+  return a.role === b.role && a.text === b.text;
 }
 
-async function reconcileChat(c) {
-  if(!c.cloudId) return;
 
-  const data = await cloudMessages(c.cloudId);
+async function syncOne(c, {create = true} = {}) {
+  if (c.syncConflict) {
+    throw new Error(
+      "Chat có xung đột. Sao lưu trước khi xử lý."
+    );
+  }
 
-  const remote = (data.messages || []).map(m => ({
-    role:m.role,
-    text:m.content
+  if (!c.cloudId && !create) return;
+
+  await ensureCloud(c);
+
+  const remote = (await cloudMessages(c.cloudId)).map(x => ({
+    role: x.role,
+    text: x.content,
+    clientId: x.client_id || uid()
   }));
 
-  const local = c.messages || [];
+  let matched = 0;
 
-  const same = (a,b) =>
-    a.role === b.role && a.text === b.text;
-
-  let n = 0;
-
-  while(
-    n < remote.length &&
-    n < local.length &&
-    same(remote[n],local[n])
+  while (
+    matched < remote.length &&
+    matched < c.messages.length &&
+    same(remote[matched], c.messages[matched])
   ) {
-    n++;
-  }
-
-  if(n === remote.length) {
-    c.syncedCount = n;
-  } else if(n === local.length) {
-    c.messages = remote;
-    c.syncedCount = remote.length;
-  } else {
-    c.syncConflict = true;
-    status("⚠️ Hội thoại có dữ liệu khác nhau; không tự ghi đè");
-    saveChats();
-    return false;
-  }
-
-  saveChats();
-  return true;
-}
-
-async function syncOne(c) {
-  if(c.syncConflict) return false;
-
-  await createCloud(c);
-
-  const ok = await reconcileChat(c);
-  if(!ok) return false;
-
-  while(c.syncedCount < c.messages.length) {
-    const m = c.messages[c.syncedCount];
-
-    if(!m || !(["user","model"].includes(m.role))) {
-      break;
+    if (remote[matched].clientId) {
+      c.messages[matched].clientId = remote[matched].clientId;
     }
 
-    await cloudRequest(
-      cloudPath(c.cloudId) + "/messages",
-      {
-        method:"POST",
-        body:JSON.stringify({
-          role:m.role,
-          content:m.text
-        })
-      }
-    );
-
-    c.syncedCount++;
-    saveChats();
+    matched++;
   }
 
-  return true;
+  if (matched < Math.min(remote.length, c.messages.length)) {
+    c.syncConflict = true;
+    save();
+    render();
+
+    throw new Error(
+      "Lịch sử Cloud và thiết bị khác nhau. Chưa ghi đè bất kỳ tin nào; hãy sao lưu."
+    );
+  }
+
+  if (c.messages.length < remote.length) {
+    c.messages = remote;
+  }
+
+  c.syncedCount = remote.length;
+  save();
+
+  for (let i = c.syncedCount; i < c.messages.length; i++) {
+    const m = c.messages[i];
+
+    if (!(["user", "model"].includes(m.role))) {
+      throw new Error("Vai trò tin nhắn không hợp lệ");
+    }
+
+    if (m.text.length > 50000) {
+      throw new Error(
+        "Tin nhắn lịch sử quá dài để đồng bộ"
+      );
+    }
+
+    await request(path(c.cloudId) + "/messages", {
+      method: "POST",
+      body: JSON.stringify({
+        role: m.role,
+        content: m.text,
+        client_id: m.clientId
+      })
+    });
+
+    c.syncedCount = i + 1;
+    save();
+  }
+
+  c.cloudLoaded = true;
+  save();
 }
+
 
 async function syncAll() {
-  if(syncing || !token) return;
+  if (syncing || busy || !token) return;
 
   syncing = true;
-  status("Đang đồng bộ Neon...");
+  status("Đang đồng bộ Neon Cloud...");
+  let failed = 0;
 
   try {
-    const data = await cloudList();
-    const remote = data.conversations || [];
+    const data = await request(api);
 
-    for(const item of remote) {
-      let c = chats.find(x =>
-        x.cloudId === item.id || x.id === item.id
+    for (const item of data.conversations || []) {
+      let c = chats.find(
+        x => x.cloudId === item.id || x.id === item.id
       );
 
-      if(!c) {
+      if (!c) {
         c = {
-          id:item.id,
-          cloudId:item.id,
-          title:item.title,
-          messages:[],
-          createdAt:item.created_at,
-          syncedCount:0
+          id: item.id,
+          cloudId: item.id,
+          title: item.title,
+          messages: [],
+          createdAt: item.created_at,
+          syncedCount: 0
         };
+
         chats.push(c);
-      } else if(c.messages.length === 0) {
-        c.title = item.title;
       }
     }
 
-    saveChats();
-    renderHistory();
+    save();
+    render();
 
-    let errors = 0;
+    for (const c of chats) {
+      if (!c.cloudId && !c.messages.length) {
+        continue;
+      }
 
-    for(const c of chats) {
       try {
-        const ok = await syncOne(c);
-        if(!ok) errors++;
-      } catch(e) {
-        errors++;
-        console.warn("Sync error:",e.message);
-        if(!token) break;
+        await syncOne(c);
+      } catch (e) {
+        failed++;
+        console.warn("Sync:", e.message);
+
+        if (!token) break;
       }
     }
 
-    saveChats();
-    renderAll();
+    render();
 
     status(
-      errors
-        ? "⚠️ " + errors +
-          " chat chưa đồng bộ; dữ liệu vẫn ở máy"
-        : "✓ Đã đồng bộ Neon Cloud"
+      failed
+        ? "⚠️ " + failed +
+          " chat chưa đồng bộ. Dữ liệu thiết bị vẫn được giữ."
+        : "✓ Neon Cloud đã đồng bộ"
     );
-  } catch(e) {
-    status("⚠️ Cloud chưa kết nối: " + e.message);
+
+  } catch (e) {
+    status("⚠️ Không đồng bộ được: " + e.message);
   } finally {
     syncing = false;
   }
 }
 
-$("loginForm").addEventListener("submit",async event => {
-  event.preventDefault();
 
-  token = $("tokenInput").value.trim();
-  if(!token) return;
+async function switchChat(id) {
+  if (busy || syncing) return;
 
-  sessionStorage.setItem("thesis_token",token);
-  $("tokenInput").value = "";
-  $("loginError").textContent = "";
-  $("loginOverlay").style.display = "none";
-
-  await syncAll();
-});
-
-$("chatForm").addEventListener("submit",async event => {
-  event.preventDefault();
-  if(busy || !token) return;
-
-  const text = $("prompt").value.trim();
-  if(!text) return;
+  activeId = id;
+  save();
+  render();
+  closeMenu();
+  notice("");
 
   const c = currentChat();
-  if(!c) return;
+
+  if (!c?.cloudId) return;
+
+  try {
+    await syncOne(c);
+
+    if (activeId === id) {
+      render();
+    }
+  } catch (e) {
+    notice(e.message);
+  }
+}
+
+
+function fallbackHistory(c, user) {
+  return c.messages
+    .filter(m => m !== user)
+    .slice(-16)
+    .map(m => ({
+      role: m.role,
+      text: String(m.text).slice(-12000)
+    }));
+}
+
+
+async function sendExisting(c, user) {
+  if (busy || syncing) return;
 
   busy = true;
   $("sendBtn").disabled = true;
+  notice("");
 
-  const previous = c.messages.slice(-16).map(m => ({
-    role:m.role,
-    text:m.text
-  }));
+  user.pending = true;
+  user.error = "";
+  save();
+  render();
 
-  if(!c.messages.length) {
-    c.title = text.slice(0,42);
+  try {
+    let cloudReady = false;
+
+    try {
+      await syncOne(c);
+      cloudReady = true;
+    } catch (e) {
+      if (c.syncConflict) throw e;
+
+      status(
+        "⚠️ Neon chưa đồng bộ; đang thử chat với lịch sử thiết bị"
+      );
+    }
+
+    const payload = {
+      message: user.text,
+      history: fallbackHistory(c, user)
+    };
+
+    if (cloudReady) {
+      payload.conversation_id = c.cloudId;
+      payload.client_message_id = user.clientId;
+    }
+
+    const data = await request("/agent/chat", {
+      method: "POST",
+      body: JSON.stringify(payload)
+    });
+
+    user.pending = false;
+    user.error = "";
+
+    const reply = String(
+      data.reply || "Gemini không trả về văn bản."
+    );
+
+    const modelId = data.reply_client_id || uid();
+
+    const existing = c.messages.find(
+      m => m.clientId === modelId
+    );
+
+    if (!existing) {
+      c.messages.push({
+        role: "model",
+        text: reply,
+        clientId: modelId
+      });
+    }
+
+    if (data.server_saved) {
+      c.syncedCount = c.messages.length;
+    }
+
+    save();
+    render();
+
+    if (data.memory_warning) {
+      status("Lưu ý: " + data.memory_warning);
+    } else {
+      status(
+        data.server_saved
+          ? "✓ Tin nhắn và câu trả lời đã lưu Neon"
+          : "✓ Đã trả lời; bấm Đồng bộ Cloud để sao lưu"
+      );
+    }
+
+  } catch (e) {
+    user.pending = true;
+    user.error = e.message;
+    save();
+    render();
+
+    notice(
+      "⚠️ " + e.message +
+      ". Tin nhắn còn trên máy; bấm 'Thử gửi lại' ngay bên dưới tin nhắn."
+    );
+
+  } finally {
+    busy = false;
+    $("sendBtn").disabled = false;
+    render();
+  }
+}
+
+
+function retryMessage(chatId, clientId) {
+  if (activeId !== chatId || busy || syncing) return;
+
+  const c = currentChat();
+
+  const m = c?.messages.find(
+    x => x.clientId === clientId
+  );
+
+  if (m && m.role === "user") {
+    sendExisting(c, m);
+  }
+}
+
+
+$("chatForm").addEventListener("submit", e => {
+  e.preventDefault();
+
+  if (busy || syncing || !token) return;
+
+  const text = $("prompt").value.trim();
+
+  if (!text) return;
+
+  const c = currentChat();
+
+  if (!c) return;
+
+  if (c.syncConflict) {
+    notice(
+      "Chat đang xung đột Cloud. Hãy sao lưu và chọn Chat mới."
+    );
+    return;
   }
 
-  c.messages.push({
-    role:"user",
-    text
-  });
+  if (c.messages.some(x => x.pending)) {
+    notice(
+      "Có tin nhắn chưa trả lời. Hãy bấm 'Thử gửi lại' trước."
+    );
+    return;
+  }
 
-  saveChats();
-  renderAll();
+  const user = {
+    role: "user",
+    text,
+    clientId: uid(),
+    pending: true,
+    error: ""
+  };
+
+  if (!c.messages.length) {
+    c.title = text.slice(0, 42);
+  }
+
+  c.messages.push(user);
+
+  if (!save()) {
+    c.messages.pop();
+    render();
+    return;
+  }
+
+  render();
 
   $("prompt").value = "";
   $("prompt").style.height = "auto";
 
-  const thinking = addMessage("Đang phân tích...","model");
-
-  try {
-    const response = await fetch("/agent/chat",{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json",
-        "x-thesis-token":token
-      },
-      body:JSON.stringify({
-        message:text,
-        history:previous
-      })
-    });
-
-    if(response.status === 401) {
-      lock();
-      throw new Error("Mã truy cập không hợp lệ");
-    }
-
-    if(!response.ok) {
-      throw new Error(
-        "Máy chủ trả lỗi " + response.status
-      );
-    }
-
-    const data = await response.json();
-
-    c.messages.push({
-      role:"model",
-      text:data.reply || "Không nhận được câu trả lời."
-    });
-
-    saveChats();
-    renderAll();
-  } catch(e) {
-    thinking.textContent =
-      "Lỗi: " + e.message +
-      ". Tin nhắn của m đã được lưu trên thiết bị.";
-  } finally {
-    busy = false;
-    $("sendBtn").disabled = false;
-    await syncAll();
-  }
+  sendExisting(c, user);
 });
 
-$("newChat").addEventListener("click",createChat);
-$("topNewChat").addEventListener("click",createChat);
-$("lockBtn").addEventListener("click",lock);
-$("syncChat").addEventListener("click",syncAll);
 
-$("menuBtn").addEventListener("click",() => {
+$("loginForm").addEventListener("submit", async e => {
+  e.preventDefault();
+
+  token = $("tokenInput").value.trim();
+
+  if (!token) return;
+
+  try {
+    await request("/agent/health");
+  } catch (err) {
+    $("loginError").textContent = err.message;
+    return;
+  }
+
+  sessionStorage.setItem("thesis_token", token);
+  $("tokenInput").value = "";
+  $("loginOverlay").style.display = "none";
+  $("loginError").textContent = "";
+
+  syncAll();
+});
+
+
+$("newChat").addEventListener("click", newChat);
+$("topNewChat").addEventListener("click", newChat);
+$("lockBtn").addEventListener("click", lock);
+$("syncChat").addEventListener("click", syncAll);
+
+
+$("menuBtn").addEventListener("click", () => {
   $("sidebar").classList.toggle("open");
   $("scrim").classList.toggle("show");
 });
 
-$("scrim").addEventListener("click",closeMenu);
 
-$("renameChat").addEventListener("click",async () => {
+$("scrim").addEventListener("click", closeMenu);
+
+
+$("renameChat").addEventListener("click", async () => {
   const c = currentChat();
-  if(!c || busy) return;
 
-  const name = prompt("Tên cuộc trò chuyện:",c.title);
-  if(!name || !name.trim()) return;
+  if (!c || busy || syncing) return;
 
-  c.title = name.trim().slice(0,80);
-  saveChats();
-  renderAll();
+  const s = prompt(
+    "Tên cuộc trò chuyện:",
+    c.title
+  );
 
-  try {
-    await renameCloud(c);
-    status("✓ Đã đổi tên Cloud");
-  } catch(e) {
-    status(
-      "⚠️ Tên mới chỉ lưu trên máy: " + e.message
-    );
+  if (!s?.trim()) return;
+
+  c.title = s.trim().slice(0, 120);
+  save();
+  render();
+
+  if (c.cloudId) {
+    try {
+      await request(path(c.cloudId), {
+        method: "PATCH",
+        body: JSON.stringify({
+          title: c.title
+        })
+      });
+
+      status("✓ Đã đổi tên Cloud");
+    } catch (e) {
+      status(
+        "⚠️ Tên mới chỉ lưu trên máy: " + e.message
+      );
+    }
   }
 });
 
-$("deleteChat").addEventListener("click",async () => {
-  if(busy || syncing) return;
+
+$("deleteChat").addEventListener("click", async () => {
+  if (busy || syncing) return;
 
   const c = currentChat();
 
-  if(!c || !confirm(
-    "Xóa cuộc trò chuyện này trên thiết bị và Neon Cloud?"
+  if (!c || !confirm(
+    "Xóa chat trên thiết bị và Neon? Không thể hoàn tác."
   )) {
     return;
   }
 
-  if(c.cloudId) {
+  if (c.cloudId) {
     try {
-      await cloudRequest(cloudPath(c.cloudId),{
-        method:"DELETE"
+      await request(path(c.cloudId), {
+        method: "DELETE"
       });
-    } catch(e) {
-      alert("Chưa xóa được trên Cloud: " + e.message);
+    } catch (e) {
+      notice(
+        "Chưa xóa được Neon: " + e.message
+      );
       return;
     }
   }
@@ -794,53 +1373,167 @@ $("deleteChat").addEventListener("click",async () => {
   chats = chats.filter(x => x.id !== c.id);
   activeId = chats[0]?.id || "";
 
-  if(!activeId) {
-    createChat();
+  if (activeId) {
+    save();
+    render();
   } else {
-    saveChats();
-    renderAll();
+    newChat();
   }
 
   closeMenu();
 });
 
-$("exportChat").addEventListener("click",() => {
+
+function exportBackup() {
   const blob = new Blob(
-    [JSON.stringify(chats,null,2)],
-    {type:"application/json"}
+    [
+      JSON.stringify(
+        {
+          version: "3.5",
+          chats,
+          exportedAt: new Date().toISOString()
+        },
+        null,
+        2
+      )
+    ],
+    {
+      type: "application/json"
+    }
   );
 
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
 
   a.href = url;
-  a.download = "thesis-ai-backup.json";
+  a.download =
+    "thesis-ai-backup-" +
+    new Date().toISOString().slice(0, 10) +
+    ".json";
+
   a.click();
 
-  setTimeout(() => URL.revokeObjectURL(url),1000);
+  setTimeout(() => {
+    URL.revokeObjectURL(url);
+  }, 2000);
+}
+
+
+$("exportChat").addEventListener(
+  "click",
+  exportBackup
+);
+
+
+$("importChat").addEventListener("click", () => {
+  $("importFile").click();
 });
 
-$("prompt").addEventListener("input",() => {
+
+$("importFile").addEventListener("change", async e => {
+  const file = e.target.files?.[0];
+
+  if (!file) return;
+
+  try {
+    if (file.size > 25 * 1024 * 1024) {
+      throw new Error("File quá 25 MB");
+    }
+
+    const x = JSON.parse(await file.text());
+    const incoming = Array.isArray(x) ? x : x.chats;
+
+    if (!Array.isArray(incoming)) {
+      throw new Error(
+        "Không phải bản sao lưu THESIS AI"
+      );
+    }
+
+    let count = 0;
+
+    for (const raw of incoming) {
+      if (
+        !raw ||
+        !Array.isArray(raw.messages)
+      ) {
+        continue;
+      }
+
+      const c = {
+        id: localId(),
+        title:
+          String(raw.title || "Chat khôi phục")
+            .slice(0, 120) +
+          " (khôi phục)",
+
+        messages: raw.messages
+          .filter(m =>
+            m &&
+            ["user", "model"].includes(m.role) &&
+            typeof m.text === "string"
+          )
+          .map(m => ({
+            role: m.role,
+            text: m.text,
+            clientId: uid(),
+            pending: false
+          })),
+
+        createdAt: new Date().toISOString(),
+        cloudId: null,
+        syncedCount: 0
+      };
+
+      chats.push(c);
+      count++;
+    }
+
+    save();
+    render();
+
+    status(
+      "✓ Đã nhập " + count +
+      " chat dạng bản sao, không ghi đè dữ liệu cũ"
+    );
+
+  } catch (err) {
+    notice(
+      "Không nhập được bản sao lưu: " +
+      err.message
+    );
+  }
+
+  e.target.value = "";
+});
+
+
+$("prompt").addEventListener("input", () => {
   $("prompt").style.height = "auto";
+
   $("prompt").style.height =
-    Math.min($("prompt").scrollHeight,180) + "px";
+    Math.min(
+      $("prompt").scrollHeight,
+      180
+    ) + "px";
 });
 
-$("prompt").addEventListener("keydown",event => {
-  if(
-    event.key === "Enter" &&
-    !event.shiftKey &&
-    !event.isComposing &&
+
+$("prompt").addEventListener("keydown", e => {
+  if (
+    e.key === "Enter" &&
+    !e.shiftKey &&
+    !e.isComposing &&
     window.innerWidth > 760
   ) {
-    event.preventDefault();
+    e.preventDefault();
     $("chatForm").requestSubmit();
   }
 });
 
-loadChats();
 
-if(token) {
+load();
+
+if (token) {
   $("loginOverlay").style.display = "none";
   syncAll();
 }
