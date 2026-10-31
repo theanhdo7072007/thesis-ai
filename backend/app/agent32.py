@@ -962,3 +962,106 @@ def list_knowledge(
             ).fetchall()
 
     return {"notes": notes}
+    
+# ==========================================
+# PERSISTENT CONVERSATIONS API
+# ==========================================
+
+class ConversationRequest(BaseModel):
+    title: str = Field(default="Cuộc trò chuyện mới", max_length=120)
+
+
+class MessageRequest(BaseModel):
+    role: Literal["user", "model"]
+    content: str = Field(min_length=1, max_length=20000)
+
+
+@router.get("/conversations")
+def list_conversations(
+    _: bool = Depends(require_owner)
+):
+    with db() as conn:
+        rows = conn.execute("""
+            SELECT id::text AS id, title, created_at, updated_at
+            FROM agent_conversations
+            ORDER BY updated_at DESC
+            LIMIT 100
+        """).fetchall()
+    return {"conversations": rows}
+
+
+@router.post("/conversations")
+def create_conversation(
+    req: ConversationRequest,
+    _: bool = Depends(require_owner)
+):
+    uid = uuid.uuid4()
+    with db() as conn:
+        conn.execute("""
+            INSERT INTO agent_conversations (id, title)
+            VALUES (%s, %s)
+        """, (uid, req.title))
+    return {"id": str(uid), "title": req.title}
+
+
+@router.get("/conversations/{conversation_id}/messages")
+def list_conversation_messages(
+    conversation_id: uuid.UUID,
+    _: bool = Depends(require_owner)
+):
+    with db() as conn:
+        exists = conn.execute("""
+            SELECT 1 FROM agent_conversations WHERE id = %s
+        """, (conversation_id,)).fetchone()
+        if not exists:
+            raise HTTPException(404, "Conversation not found")
+
+        rows = conn.execute("""
+            SELECT id::text AS id, role, content, created_at
+            FROM agent_messages
+            WHERE conversation_id = %s
+            ORDER BY created_at ASC, id ASC
+            LIMIT 500
+        """, (conversation_id,)).fetchall()
+    return {"messages": rows}
+
+
+@router.post("/conversations/{conversation_id}/messages")
+def save_conversation_message(
+    conversation_id: uuid.UUID,
+    req: MessageRequest,
+    _: bool = Depends(require_owner)
+):
+    uid = uuid.uuid4()
+    with db() as conn:
+        result = conn.execute("""
+            UPDATE agent_conversations
+            SET updated_at = NOW()
+            WHERE id = %s
+            RETURNING id
+        """, (conversation_id,)).fetchone()
+        if not result:
+            raise HTTPException(404, "Conversation not found")
+
+        conn.execute("""
+            INSERT INTO agent_messages (id, conversation_id, role, content)
+            VALUES (%s, %s, %s, %s)
+        """, (uid, conversation_id, req.role, req.content))
+    return {"ok": True, "id": str(uid)}
+
+
+@router.delete("/conversations/{conversation_id}")
+def delete_conversation(
+    conversation_id: uuid.UUID,
+    _: bool = Depends(require_owner)
+):
+    with db() as conn:
+        result = conn.execute("""
+            DELETE FROM agent_conversations
+            WHERE id = %s
+            RETURNING id
+        """, (conversation_id,)).fetchone()
+        if not result:
+            raise HTTPException(404, "Conversation not found")
+    return {"ok": True}
+
