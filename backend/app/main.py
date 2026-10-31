@@ -11,9 +11,9 @@ from fastapi import FastAPI, HTTPException, Header
 from pydantic import BaseModel
 from google import genai
 from google.genai import types
-
+from .agent32 import router as agent_router
 app = FastAPI(title="THESIS AI")
-
+app.include_router(agent_router)
 class ChatRequest(BaseModel):
     message: str
 @app.get("/")
