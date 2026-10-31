@@ -1,0 +1,41 @@
+
+name: THESIS AI Agent 3.2 Jobs
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '47 3 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: thesis-agent32
+  cancel-in-progress: false
+
+jobs:
+  agent-jobs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install \
+            "fastapi>=0.115,<1" \
+            "pydantic>=2,<3" \
+            "psycopg[binary]>=3.2,<4" \
+            "google-genai>=1,<2"
+
+      - name: Run approved agent jobs
+        env:
+          DATABASE_URL: ${{ secrets.AGENT_DATABASE_URL }}
+        run: python scripts/agent32_jobs.py
