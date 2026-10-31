@@ -179,6 +179,37 @@ def init_schema():
                 )
             """)
 
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS agent_conversations (
+                    id UUID PRIMARY KEY,
+                    title TEXT NOT NULL DEFAULT 'Cuộc trò chuyện mới',
+                    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+                    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+                )
+            """)
+
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS agent_messages (
+                    id UUID PRIMARY KEY,
+                    conversation_id UUID NOT NULL
+                        REFERENCES agent_conversations(id)
+                        ON DELETE CASCADE,
+                    role TEXT NOT NULL
+                        CHECK (role IN ('user', 'model')),
+                    content TEXT NOT NULL,
+                    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+                )
+            """)
+
+            cur.execute("""
+                CREATE INDEX IF NOT EXISTS
+                idx_agent_messages_conversation
+                ON agent_messages (
+                    conversation_id,
+                    created_at
+                )
+            """)
+
 
 def audit(conn, event, detail):
     conn.execute(
