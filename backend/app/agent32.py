@@ -42,7 +42,8 @@ _recent_requests = []
 # ==========================================
 
 def database_url():
-    url = os.getenv("DATABASE_URL", "").strip()
+    url = os.getenv("AGENT_DATABASE_URL", "").strip()
+
 
     if url.startswith("postgresql+psycopg://"):
         url = "postgresql://" + url.split("://", 1)[1]
