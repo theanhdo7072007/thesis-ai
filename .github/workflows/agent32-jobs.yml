@@ -37,5 +37,5 @@ jobs:
 
       - name: Run approved agent jobs
         env:
-          DATABASE_URL: ${{ secrets.AGENT_DATABASE_URL }}
+          AGENT_DATABASE_URL: ${{ secrets.AGENT_DATABASE_URL }}
         run: python scripts/agent32_jobs.py
