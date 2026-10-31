@@ -1050,6 +1050,39 @@ def save_conversation_message(
     return {"ok": True, "id": str(uid)}
 
 
+# ==========================================
+# RENAME CONVERSATION
+# ==========================================
+
+class RenameConversationRequest(BaseModel):
+    title: str = Field(min_length=1, max_length=120)
+
+
+@router.patch("/conversations/{conversation_id}")
+def rename_conversation(
+    conversation_id: uuid.UUID,
+    req: RenameConversationRequest,
+    _: bool = Depends(require_owner)
+):
+    title = req.title.strip()
+
+    if not title:
+        raise HTTPException(400, "Title cannot be empty")
+
+    with db() as conn:
+        result = conn.execute("""
+            UPDATE agent_conversations
+            SET title = %s,
+                updated_at = NOW()
+            WHERE id = %s
+            RETURNING id
+        """, (title, conversation_id)).fetchone()
+
+        if not result:
+            raise HTTPException(404, "Conversation not found")
+
+    return {"ok": True, "title": title}
+
 @router.delete("/conversations/{conversation_id}")
 def delete_conversation(
     conversation_id: uuid.UUID,
