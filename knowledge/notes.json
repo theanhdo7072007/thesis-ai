@@ -1,5 +1,47 @@
 [
   {
+    "id": "e2834c74f4065e96",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Federal Reserve Board announces termination of enforcement actions with Gardner Bancshares, Inc. and Small Business Bank",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/enforcement20261016a.htm",
+    "snippet": "Federal Reserve Board announces termination of enforcement actions with Gardner Bancshares, Inc. and Small Business Bank",
+    "published": "Fri, 16 Oct 2026 15:00:00 GMT",
+    "summary_vi": "Cục Dự trữ Liên bang đã thông báo chấm dứt các hành động thực thi pháp luật đối với Gardner Bancshares, Inc. và Small Business Bank.",
+    "open_question_vi": "Lý do cụ thể dẫn đến việc chấm dứt các hành động thực thi này là gì?",
+    "learned_at": "2026-11-01T03:56:40+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "ca688a27006cdc18",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Minutes of the Board's discount rate meetings on August 17, September 9, and September 16, 2026",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261013a.htm",
+    "snippet": "Minutes of the Board's discount rate meetings on August 17, September 9, and September 16, 2026",
+    "published": "Tue, 13 Oct 2026 18:00:00 GMT",
+    "summary_vi": "Tài liệu này cung cấp biên bản các cuộc họp về lãi suất chiết khấu của Hội đồng quản trị Cục Dự trữ Liên bang diễn ra vào tháng 8 và tháng 9 năm 2026.",
+    "open_question_vi": "Những quyết định chính sách tiền tệ nào đã được thống nhất trong các cuộc họp này?",
+    "learned_at": "2026-11-01T03:56:40+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "e8fdc622cfa67671",
+    "category": "technology",
+    "source": "blog.python.org",
+    "title": "Python 3.15.1, 3.14.9 and 3.13.17 are out",
+    "url": "https://blog.python.org/2026/10/python-3151-3149-31317/",
+    "snippet": "Three certified security releases for 3.15, 3.14 and 3.13.",
+    "published": "Wed, 21 Oct 2026 00:00:00 GMT",
+    "summary_vi": "Python đã phát hành các bản cập nhật bảo mật cho ba phiên bản 3.15, 3.14 và 3.13.",
+    "open_question_vi": "Các lỗ hổng bảo mật cụ thể nào đã được khắc phục trong các bản phát hành này?",
+    "learned_at": "2026-11-01T03:56:40+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
     "id": "41690a4ebc45cdda",
     "category": "finance",
     "source": "www.federalreserve.gov",
