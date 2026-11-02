@@ -1,5 +1,47 @@
 [
   {
+    "id": "0d84bbab316fddb2",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Federal Reserve Board releases results of the 2025 Survey of Consumer Finances, which provides the public and policymakers with detailed insights into the economic condition of Ame",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/other20261009a.htm",
+    "snippet": "Federal Reserve Board releases results of the 2025 Survey of Consumer Finances, which provides the public and policymakers with detailed insights into the economic condition of American families",
+    "published": "Fri, 9 Oct 2026 14:00:00 GMT",
+    "summary_vi": "Cục Dự trữ Liên bang đã công bố kết quả Khảo sát Tài chính Người tiêu dùng năm 2025 nhằm cung cấp thông tin chi tiết về tình hình kinh tế của các gia đình Mỹ.",
+    "open_question_vi": "Những xu hướng kinh tế cụ thể nào được nêu bật trong kết quả khảo sát năm 2025?",
+    "learned_at": "2026-11-02T04:00:01+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "8fbb18afd13a46e5",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Federal Reserve Board announces enforcement action against American Express Company to address, among other things, the firm’s failure to sufficiently detect and report certain sus",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/enforcement20261008a.htm",
+    "snippet": "Federal Reserve Board announces enforcement action against American Express Company to address, among other things, the firm’s failure to sufficiently detect and report certain suspicious activity related to money laundering",
+    "published": "Thu, 8 Oct 2026 20:30:00 GMT",
+    "summary_vi": "Cục Dự trữ Liên bang đã thực hiện hành động cưỡng chế đối với American Express do công ty này không phát hiện và báo cáo đầy đủ các hoạt động nghi ngờ liên quan đến rửa tiền.",
+    "open_question_vi": "Các biện pháp khắc phục cụ thể mà American Express phải thực hiện theo yêu cầu của Cục Dự trữ Liên bang là gì?",
+    "learned_at": "2026-11-02T04:00:01+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "6be9e8a8ba35af03",
+    "category": "technology",
+    "source": "blog.python.org",
+    "title": "Python 3.16.0 alpha 1 is now available",
+    "url": "https://blog.python.org/2026/10/python-3160-alpha-1-is-now-available/",
+    "snippet": "The first developer preview of Python 3.16 is ready for testing.",
+    "published": "Tue, 13 Oct 2026 00:00:00 GMT",
+    "summary_vi": "Phiên bản xem trước dành cho nhà phát triển đầu tiên của Python 3.16 đã được phát hành để phục vụ mục đích thử nghiệm.",
+    "open_question_vi": "Những tính năng hoặc cải tiến mới nào được giới thiệu trong phiên bản alpha 1 của Python 3.16?",
+    "learned_at": "2026-11-02T04:00:01+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
     "id": "e2834c74f4065e96",
     "category": "finance",
     "source": "www.federalreserve.gov",
