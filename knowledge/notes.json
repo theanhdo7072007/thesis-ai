@@ -1,5 +1,47 @@
 [
   {
+    "id": "08dfdbdaa9ce20cc",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Minutes of the Federal Open Market Committee, September 15-16, 2026",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261007a.htm",
+    "snippet": "Minutes of the Federal Open Market Committee, September 15-16, 2026",
+    "published": "Wed, 7 Oct 2026 18:00:00 GMT",
+    "summary_vi": "Tài liệu này chứa biên bản cuộc họp của Ủy ban Thị trường Mở Liên bang (FOMC) diễn ra vào giữa tháng 9 năm 2026.",
+    "open_question_vi": "Những quyết định cụ thể nào về chính sách tiền tệ đã được FOMC thông qua trong cuộc họp này?",
+    "learned_at": "2026-11-04T03:58:43+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "1bc4132b3f0326c5",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Federal Reserve Board announces approval of application by Isabella Bank Corporation",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/orders20261005a.htm",
+    "snippet": "Federal Reserve Board announces approval of application by Isabella Bank Corporation",
+    "published": "Mon, 5 Oct 2026 20:30:00 GMT",
+    "summary_vi": "Cục Dự trữ Liên bang đã chính thức phê duyệt đơn đăng ký từ Tập đoàn Ngân hàng Isabella.",
+    "open_question_vi": "Nội dung chi tiết của đơn đăng ký mà Isabella Bank Corporation đã đệ trình là gì?",
+    "learned_at": "2026-11-04T03:58:43+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "ca0ca3499dd6cc3d",
+    "category": "technology",
+    "source": "blog.python.org",
+    "title": "Python 3.15.0 (final) is here!",
+    "url": "https://blog.python.org/2026/10/python-3150-final-is-here/",
+    "snippet": "A brand new Python here for you to enjoy!",
+    "published": "Fri, 09 Oct 2026 00:00:00 GMT",
+    "summary_vi": "Phiên bản chính thức của ngôn ngữ lập trình Python 3.15.0 đã được phát hành.",
+    "open_question_vi": "Những tính năng hoặc cải tiến quan trọng nào đã được thêm vào trong phiên bản Python 3.15.0?",
+    "learned_at": "2026-11-04T03:58:43+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
     "id": "0d84bbab316fddb2",
     "category": "finance",
     "source": "www.federalreserve.gov",
