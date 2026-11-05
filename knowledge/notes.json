@@ -1,5 +1,47 @@
 [
   {
+    "id": "5d4b355ec3292efc",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Federal Reserve Board announces approval of application by Fleur Capital Corporation",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/orders20261002a.htm",
+    "snippet": "Federal Reserve Board announces approval of application by Fleur Capital Corporation",
+    "published": "Fri, 2 Oct 2026 20:45:00 GMT",
+    "summary_vi": "Cục Dự trữ Liên bang đã chính thức phê duyệt đơn đăng ký từ Fleur Capital Corporation.",
+    "open_question_vi": "Nội dung chi tiết của đơn đăng ký mà Fleur Capital Corporation đã đệ trình là gì?",
+    "learned_at": "2026-11-05T03:59:33+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "8f9bf8f9d80dc8af",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Federal Reserve Board announces it will extend, until November 4, the comment period on its proposal to modernize Regulation O",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/bcreg20261002a.htm",
+    "snippet": "Federal Reserve Board announces it will extend, until November 4, the comment period on its proposal to modernize Regulation O",
+    "published": "Fri, 2 Oct 2026 20:00:00 GMT",
+    "summary_vi": "Cục Dự trữ Liên bang thông báo gia hạn thời gian lấy ý kiến công chúng cho đề xuất hiện đại hóa Quy định O đến ngày 4 tháng 11.",
+    "open_question_vi": "Những thay đổi cụ thể nào đang được đề xuất trong việc hiện đại hóa Quy định O?",
+    "learned_at": "2026-11-05T03:59:33+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "332d2c713da55a86",
+    "category": "technology",
+    "source": "blog.python.org",
+    "title": "Python 3.15.0 candidate 3 is here!",
+    "url": "https://blog.python.org/2026/10/python-3150-rc3/",
+    "snippet": "Following tradition, a surprise rc3!",
+    "published": "Fri, 02 Oct 2026 00:00:00 GMT",
+    "summary_vi": "Phiên bản ứng viên thứ ba (rc3) của Python 3.15.0 đã được phát hành.",
+    "open_question_vi": "Những cải tiến hoặc sửa lỗi nào được bao gồm trong phiên bản rc3 so với các phiên bản trước đó?",
+    "learned_at": "2026-11-05T03:59:33+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
     "id": "08dfdbdaa9ce20cc",
     "category": "finance",
     "source": "www.federalreserve.gov",
