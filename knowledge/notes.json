@@ -1,5 +1,47 @@
 [
   {
+    "id": "2993c3bddd49024d",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Federal Reserve Board announces termination of enforcement action with Allegiant United Holdings, LLC, Nano Financial Holdings, Inc., and Nano Banc",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/enforcement20261105a.htm",
+    "snippet": "Federal Reserve Board announces termination of enforcement action with Allegiant United Holdings, LLC, Nano Financial Holdings, Inc., and Nano Banc",
+    "published": "Thu, 5 Nov 2026 16:00:00 GMT",
+    "summary_vi": "Cục Dự trữ Liên bang đã thông báo chấm dứt hành động thực thi pháp luật đối với Allegiant United Holdings, LLC, Nano Financial Holdings, Inc. và Nano Banc.",
+    "open_question_vi": "Lý do cụ thể dẫn đến việc chấm dứt hành động thực thi pháp luật đối với các tổ chức này là gì?",
+    "learned_at": "2026-11-06T03:58:27+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "b441ff6c63c6936c",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Federal Reserve Board issues enforcement action with Ontario Bancorporation, Inc.",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/enforcement20261002a.htm",
+    "snippet": "Federal Reserve Board issues enforcement action with Ontario Bancorporation, Inc.",
+    "published": "Fri, 2 Oct 2026 15:00:00 GMT",
+    "summary_vi": "Cục Dự trữ Liên bang đã ban hành một hành động thực thi pháp luật đối với Ontario Bancorporation, Inc.",
+    "open_question_vi": "Nội dung chi tiết và nguyên nhân dẫn đến hành động thực thi pháp luật đối với Ontario Bancorporation, Inc. là gì?",
+    "learned_at": "2026-11-06T03:58:27+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "edb6d9d455f89e0b",
+    "category": "technology",
+    "source": "blog.python.org",
+    "title": "Python 3.10.22, 3.11.17, 3.12.15, 3.13.16 and 3.14.8 are now available!",
+    "url": "https://blog.python.org/2026/10/python-31022-31117/",
+    "snippet": "Security updates across Python 3.10–3.14, the final maintenance release of 3.13, and a farewell to Python 3.10.",
+    "published": "Thu, 01 Oct 2026 00:00:00 GMT",
+    "summary_vi": "Python đã phát hành các bản cập nhật bảo mật cho các phiên bản từ 3.10 đến 3.14, đồng thời đánh dấu sự kết thúc hỗ trợ cho phiên bản 3.10.",
+    "open_question_vi": "Những lỗ hổng bảo mật cụ thể nào đã được khắc phục trong các bản cập nhật mới này?",
+    "learned_at": "2026-11-06T03:58:27+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
     "id": "5d4b355ec3292efc",
     "category": "finance",
     "source": "www.federalreserve.gov",
