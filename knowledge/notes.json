@@ -1,5 +1,19 @@
 [
   {
+    "id": "3a98aabcf020cbd5",
+    "category": "technology",
+    "source": "blog.python.org",
+    "title": "Python Language Summit 2026",
+    "url": "https://blog.python.org/2026/09/language-summit-2026/",
+    "snippet": "The 2026 Python Language Summit was hosted in Kraków, Poland as part of EuroPython 2026. There were 15 talks covering free-threading, Rust, garbage collection, type annotations, and more.",
+    "published": "Wed, 30 Sep 2026 12:00:11 GMT",
+    "summary_vi": "Hội nghị Python Language Summit 2026 đã diễn ra tại Kraków, Ba Lan trong khuôn khổ sự kiện EuroPython 2026. Chương trình bao gồm 15 bài thuyết trình tập trung vào các chủ đề như đa luồng tự do, Rust, thu gom rác và chú thích kiểu dữ liệu.",
+    "open_question_vi": "Những thay đổi cụ thể nào về đa luồng tự do đã được thảo luận tại hội nghị này?",
+    "learned_at": "2026-11-07T03:55:21+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
     "id": "2993c3bddd49024d",
     "category": "finance",
     "source": "www.federalreserve.gov",
