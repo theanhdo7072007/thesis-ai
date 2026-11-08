@@ -1,5 +1,19 @@
 [
   {
+    "id": "95575668a18856df",
+    "category": "technology",
+    "source": "blog.python.org",
+    "title": "Lightning Talks (Python Language Summit 2026)",
+    "url": "https://blog.python.org/2026/09/language-summit-2026-lightning-talks/",
+    "snippet": "Lightning talks on a one-time ABI break, safer interruptions, EktuPy (Scratch but Python), an AGENTS.md file for CPython, and a call to read PEP 836.",
+    "published": "Wed, 30 Sep 2026 12:00:10 GMT",
+    "summary_vi": "Hội nghị Python Language Summit 2026 đã tổ chức các bài thuyết trình nhanh về nhiều chủ đề kỹ thuật, bao gồm thay đổi ABI, cơ chế ngắt an toàn, dự án EktuPy và đề xuất tệp AGENTS.md cho CPython.",
+    "open_question_vi": "Nội dung chi tiết và mục tiêu cụ thể của PEP 836 được đề cập trong hội nghị là gì?",
+    "learned_at": "2026-11-08T03:57:47+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
     "id": "3a98aabcf020cbd5",
     "category": "technology",
     "source": "blog.python.org",
