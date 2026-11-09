@@ -1,5 +1,19 @@
 [
   {
+    "id": "c16c4b5400db7dc6",
+    "category": "technology",
+    "source": "blog.python.org",
+    "title": "PEP 827: Type Manipulation (Python Language Summit 2026)",
+    "url": "https://blog.python.org/2026/09/language-summit-2026-pep-827-type-manipulation/",
+    "snippet": "Michael J. Sullivan presents PEP 827 and discusses a key design decision: how to store type annotations?",
+    "published": "Wed, 30 Sep 2026 12:00:09 GMT",
+    "summary_vi": "Tại Hội nghị Ngôn ngữ Python 2026, Michael J. Sullivan đã trình bày về PEP 827, tập trung vào các quyết định thiết kế liên quan đến phương thức lưu trữ chú thích kiểu (type annotations).",
+    "open_question_vi": "Cơ chế lưu trữ chú thích kiểu cụ thể được đề xuất trong PEP 827 là gì và nó ảnh hưởng thế nào đến hiệu năng của Python?",
+    "learned_at": "2026-11-09T04:00:47+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
     "id": "95575668a18856df",
     "category": "technology",
     "source": "blog.python.org",
