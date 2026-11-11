@@ -1,5 +1,33 @@
 [
   {
+    "id": "2bae0dc9f043ef95",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Federal Reserve Board announces approval of two applications by Mutual Federal Bancorp, MHC, and MFB Bancorp, Inc.",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/orders20261109a.htm",
+    "snippet": "Federal Reserve Board announces approval of two applications by Mutual Federal Bancorp, MHC, and MFB Bancorp, Inc.",
+    "published": "Mon, 9 Nov 2026 21:00:00 GMT",
+    "summary_vi": "Cục Dự trữ Liên bang đã thông báo phê duyệt hai đơn đăng ký từ Mutual Federal Bancorp, MHC và MFB Bancorp, Inc.",
+    "open_question_vi": "Nội dung cụ thể của hai đơn đăng ký được phê duyệt này là gì?",
+    "learned_at": "2026-11-11T04:00:04+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "d4af201e3a6bd934",
+    "category": "technology",
+    "source": "blog.python.org",
+    "title": "Python 3.16.0 alpha 2 is now available",
+    "url": "https://blog.python.org/2026/11/python-3160-alpha-2-is-now-available/",
+    "snippet": "The second developer preview of Python 3.16 is ready for testing.",
+    "published": "Tue, 10 Nov 2026 00:00:00 GMT",
+    "summary_vi": "Phiên bản xem trước dành cho nhà phát triển thứ hai của Python 3.16 đã được phát hành để thử nghiệm.",
+    "open_question_vi": "Những tính năng hoặc thay đổi mới nào được giới thiệu trong phiên bản alpha 2 của Python 3.16?",
+    "learned_at": "2026-11-11T04:00:04+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
     "id": "c16c4b5400db7dc6",
     "category": "technology",
     "source": "blog.python.org",
