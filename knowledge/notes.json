@@ -1,5 +1,19 @@
 [
   {
+    "id": "1cc4b9645a39acca",
+    "category": "technology",
+    "source": "blog.python.org",
+    "title": "Free-Threaded Python Post-Era (Python Language Summit 2026)",
+    "url": "https://blog.python.org/2026/09/language-summit-2026-free-threading-post-era/",
+    "snippet": "Tobias Wrigstad, Fridtjof Stoldt, and Donghee Na propose a safe and performant, high-level concurrency model for free-threaded Python",
+    "published": "Wed, 30 Sep 2026 12:00:08 GMT",
+    "summary_vi": "Các chuyên gia Tobias Wrigstad, Fridtjof Stoldt và Donghee Na đã đề xuất một mô hình đồng thời cấp cao, an toàn và hiệu quả cho Python không khóa luồng (free-threaded).",
+    "open_question_vi": "Mô hình đồng thời này sẽ ảnh hưởng như thế nào đến hiệu suất thực tế của các ứng dụng Python hiện có?",
+    "learned_at": "2026-11-12T03:59:42+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
     "id": "2bae0dc9f043ef95",
     "category": "finance",
     "source": "www.federalreserve.gov",
