@@ -1,5 +1,47 @@
 [
   {
+    "id": "1ee6867cdbb6f3c3",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Federal Reserve Board announces pricing, effective January 1, 2027, for payment services the Federal Reserve Banks provide to banks and credit unions, and changes to streamline and",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/other20261112a.htm",
+    "snippet": "Federal Reserve Board announces pricing, effective January 1, 2027, for payment services the Federal Reserve Banks provide to banks and credit unions, and changes to streamline and adjust their check services",
+    "published": "Thu, 12 Nov 2026 18:30:00 GMT",
+    "summary_vi": "Cục Dự trữ Liên bang thông báo về việc điều chỉnh giá dịch vụ thanh toán cho các ngân hàng và tổ chức tín dụng, có hiệu lực từ ngày 1 tháng 1 năm 2027.",
+    "open_question_vi": "Những thay đổi cụ thể nào trong dịch vụ kiểm tra sẽ được thực hiện để hợp lý hóa quy trình?",
+    "learned_at": "2026-11-13T03:59:01+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "87a784bdd6110f05",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Federal Reserve announces revised tentative schedule of Federal Open Market Committee meetings in 2027",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261112a.htm",
+    "snippet": "Federal Reserve announces revised tentative schedule of Federal Open Market Committee meetings in 2027",
+    "published": "Thu, 12 Nov 2026 17:45:00 GMT",
+    "summary_vi": "Cục Dự trữ Liên bang đã công bố lịch trình dự kiến sửa đổi cho các cuộc họp của Ủy ban Thị trường Mở Liên bang (FOMC) trong năm 2027.",
+    "open_question_vi": "Các thay đổi trong lịch trình họp của FOMC năm 2027 có phản ánh sự thay đổi nào trong chiến lược chính sách tiền tệ không?",
+    "learned_at": "2026-11-13T03:59:01+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "29281df8d65397e3",
+    "category": "technology",
+    "source": "blog.python.org",
+    "title": "Developer-in-Residence Update & Future (Python Language Summit 2026)",
+    "url": "https://blog.python.org/2026/09/language-summit-2026-developer-in-residence-update-and-future/",
+    "snippet": "Petr Viktorin gives an update on the Developer-in-Residence role and asks Python core developers for projects to prioritize",
+    "published": "Wed, 30 Sep 2026 12:00:07 GMT",
+    "summary_vi": "Petr Viktorin đã cung cấp thông tin cập nhật về vai trò 'Developer-in-Residence' và kêu gọi các nhà phát triển cốt lõi của Python xác định các dự án ưu tiên.",
+    "open_question_vi": "Những dự án cụ thể nào đã được các nhà phát triển cốt lõi của Python chọn để ưu tiên thực hiện sau hội nghị?",
+    "learned_at": "2026-11-13T03:59:01+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
     "id": "1cc4b9645a39acca",
     "category": "technology",
     "source": "blog.python.org",
