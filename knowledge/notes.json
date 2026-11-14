@@ -1,5 +1,47 @@
 [
   {
+    "id": "537d1229e28dcb29",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Agencies extend comment period for proposed third-party risk management guidance",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/bcreg20261113a.htm",
+    "snippet": "Agencies extend comment period for proposed third-party risk management guidance",
+    "published": "Fri, 13 Nov 2026 21:15:00 GMT",
+    "summary_vi": "Các cơ quan chức năng đã quyết định gia hạn thời gian lấy ý kiến công chúng đối với dự thảo hướng dẫn quản lý rủi ro từ bên thứ ba.",
+    "open_question_vi": "Những thay đổi cụ thể nào trong dự thảo hướng dẫn quản lý rủi ro này đang thu hút sự quan tâm của các bên liên quan?",
+    "learned_at": "2026-11-14T03:57:24+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "e589a1e1c99ea10e",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Federal Reserve Board issues enforcement action with former employee of United Community Bank",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/enforcement20261112a.htm",
+    "snippet": "Federal Reserve Board issues enforcement action with former employee of United Community Bank",
+    "published": "Thu, 12 Nov 2026 16:00:00 GMT",
+    "summary_vi": "Cục Dự trữ Liên bang đã ban hành một biện pháp cưỡng chế đối với một cựu nhân viên của Ngân hàng United Community.",
+    "open_question_vi": "Hành vi vi phạm cụ thể nào dẫn đến việc Cục Dự trữ Liên bang phải ban hành biện pháp cưỡng chế đối với cá nhân này?",
+    "learned_at": "2026-11-14T03:57:24+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "e714212c469467e2",
+    "category": "science",
+    "source": "www.nasa.gov",
+    "title": "Outbursts from a Massive Star",
+    "url": "https://www.nasa.gov/image-article/outbursts-from-a-massive-star/",
+    "snippet": "Using NASA’s Chandra X-ray Observatory, astronomers have discovered what is triggering repeated outbursts from a giant, unstable star located in the galaxy shown in this image released on Nov. 9, 2026. The volatile star, known as AT 2016blu, is in the spiral galaxy NGC 4559, located about 30 million light-years from Earth. Astronomers estimate the […]",
+    "published": "Fri, 13 Nov 2026 16:39:33 +0000",
+    "summary_vi": "Các nhà thiên văn học sử dụng Đài quan sát tia X Chandra của NASA đã xác định được nguyên nhân gây ra các đợt bùng phát lặp đi lặp lại từ ngôi sao khổng lồ AT 2016blu.",
+    "open_question_vi": "Cơ chế vật lý cụ thể nào gây ra sự mất ổn định và các đợt bùng phát của ngôi sao AT 2016blu?",
+    "learned_at": "2026-11-14T03:57:24+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
     "id": "1ee6867cdbb6f3c3",
     "category": "finance",
     "source": "www.federalreserve.gov",
