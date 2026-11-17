@@ -1,5 +1,19 @@
 [
   {
+    "id": "e03011c48905b459",
+    "category": "technology",
+    "source": "blog.python.org",
+    "title": "XTM Transifex sponsors Python’s documentation translations",
+    "url": "https://blog.python.org/2026/11/transifex-sponsors-python-docs/",
+    "snippet": "XTM Transifex is supporting Python’s documentation translation teams with a year of free access to its Growth plan.",
+    "published": "Mon, 16 Nov 2026 00:00:00 GMT",
+    "summary_vi": "XTM Transifex cung cấp gói dịch vụ Growth miễn phí trong một năm để hỗ trợ các nhóm dịch thuật tài liệu của Python.",
+    "open_question_vi": "Việc tài trợ này sẽ ảnh hưởng như thế nào đến quy trình làm việc và chất lượng bản dịch của cộng đồng Python trong dài hạn?",
+    "learned_at": "2026-11-17T03:59:32+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
     "id": "2b062e211d835d10",
     "category": "science",
     "source": "www.nasa.gov",
