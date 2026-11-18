@@ -1,5 +1,19 @@
 [
   {
+    "id": "53d25b480876e42d",
+    "category": "science",
+    "source": "www.nasa.gov",
+    "title": "BPS Digital AVATAR Challenge",
+    "url": "https://www.nasa.gov/directorates/stmd/prizes-challenges-crowdsourcing-program/center-of-excellence-for-collaborative-innovation-coeci/bps-digital-avatar-challenge/",
+    "snippet": "The NASA Space Biology Program within the Biological and Physical Sciences (BPS) Division investigates how living systems respond across the full spectrum of biological organization to advance understanding of how living systems respond to the unique stressors of space exploration—including microgravity, ionizing radiation, low magnetic fields, and elevated CO₂. As NASA prepares for long-duration deep […]",
+    "published": "Tue, 17 Nov 2026 20:39:38 +0000",
+    "summary_vi": "Chương trình Sinh học Không gian của NASA đang tìm hiểu cách các hệ thống sinh học phản ứng với những tác nhân gây căng thẳng đặc thù trong môi trường vũ trụ như vi trọng lực và bức xạ. Thử thách BPS Digital AVATAR nhằm mục đích thúc đẩy nghiên cứu này để hỗ trợ các sứ mệnh thám hiểm không gian dài ngày.",
+    "open_question_vi": "Cụ thể thì thử thách BPS Digital AVATAR yêu cầu người tham gia phát triển công nghệ hoặc mô hình dữ liệu như thế nào để mô phỏng các phản ứng sinh học này?",
+    "learned_at": "2026-11-18T04:02:01+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
     "id": "e03011c48905b459",
     "category": "technology",
     "source": "blog.python.org",
