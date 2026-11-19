@@ -1,5 +1,33 @@
 [
   {
+    "id": "c0c4ef66e0d9307c",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Minutes of the Federal Open Market Committee, October 27-28, 2026",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261118a.htm",
+    "snippet": "Minutes of the Federal Open Market Committee, October 27-28, 2026",
+    "published": "Wed, 18 Nov 2026 19:00:00 GMT",
+    "summary_vi": "Tài liệu này ghi lại biên bản cuộc họp của Ủy ban Thị trường Mở Liên bang (FOMC) diễn ra vào ngày 27-28 tháng 10 năm 2026.",
+    "open_question_vi": "Những quyết định cụ thể nào về chính sách tiền tệ đã được FOMC thông qua trong cuộc họp này?",
+    "learned_at": "2026-11-19T04:03:59+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "162c5c6a72fe29aa",
+    "category": "science",
+    "source": "www.nasa.gov",
+    "title": "NASA Sets Coverage for Northrop Grumman CRS-25 Launch, Prelaunch",
+    "url": "https://www.nasa.gov/news-release/nasa-sets-coverage-for-northrop-grumman-crs-25-launch-prelaunch/",
+    "snippet": "NASA, Northrop Grumman, and SpaceX are targeting no earlier than 10:47 a.m. EST, Sunday, Nov. 29, for the next launch delivering science investigations, supplies, and equipment to the International Space Station. The agency also will hold a prelaunch media teleconference on Monday, Nov. 23. Filled with approximately 11,000 pounds of cargo, the Northrop Grumman Cygnus […]",
+    "published": "Wed, 18 Nov 2026 22:19:17 +0000",
+    "summary_vi": "NASA và các đối tác dự kiến thực hiện vụ phóng tàu Northrop Grumman CRS-25 vào ngày 29 tháng 11 năm 2026 để vận chuyển hàng hóa lên Trạm Vũ trụ Quốc tế.",
+    "open_question_vi": "Các nghiên cứu khoa học cụ thể nào sẽ được thực hiện trong chuyến vận chuyển hàng hóa lần này?",
+    "learned_at": "2026-11-19T04:03:59+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
     "id": "53d25b480876e42d",
     "category": "science",
     "source": "www.nasa.gov",
