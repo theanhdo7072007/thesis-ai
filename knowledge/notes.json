@@ -1,5 +1,33 @@
 [
   {
+    "id": "325a2d06cee138cc",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Federal Reserve Board issues enforcement action with former employee of First Security Bancorp",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/enforcement20261119a.htm",
+    "snippet": "Federal Reserve Board issues enforcement action with former employee of First Security Bancorp",
+    "published": "Thu, 19 Nov 2026 16:00:00 GMT",
+    "summary_vi": "Cục Dự trữ Liên bang đã ban hành một biện pháp thực thi pháp luật đối với một cựu nhân viên của First Security Bancorp. Thông tin chi tiết về bản chất của hành vi vi phạm không được cung cấp trong nguồn dữ liệu.",
+    "open_question_vi": "Cụ thể hành vi vi phạm của cựu nhân viên này là gì và nó ảnh hưởng như thế nào đến First Security Bancorp?",
+    "learned_at": "2026-11-20T03:59:26+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "58a8acf48ab8c7a1",
+    "category": "science",
+    "source": "www.nasa.gov",
+    "title": "Challenge: Public Input on Life and the World in 2075",
+    "url": "https://www.nasa.gov/directorates/stmd/prizes-challenges-crowdsourcing-program/center-of-excellence-for-collaborative-innovation-coeci/challenge-public-input-on-life-and-the-world-in-2075/",
+    "snippet": "NASA’s Transformational Tools and Technologies (TTT) is gathering public perspectives on life today and how the world may change by 2075. This challenge asks for conceptual ideas about life in 2075 across four challenge topics. Ideas should explore how future aviation or aerospace systems could: Ideas should be conceptual rather than technical. Award: $20,000 in […]",
+    "published": "Thu, 19 Nov 2026 19:34:20 +0000",
+    "summary_vi": "NASA đang tổ chức một cuộc thi kêu gọi công chúng đóng góp ý tưởng về cuộc sống và sự phát triển của các hệ thống hàng không hoặc vũ trụ vào năm 2075. Chương trình này tập trung vào các khái niệm sáng tạo thay vì các giải pháp kỹ thuật.",
+    "open_question_vi": "Các tiêu chí cụ thể nào được sử dụng để đánh giá các ý tưởng khái niệm trong cuộc thi này?",
+    "learned_at": "2026-11-20T03:59:26+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
     "id": "c0c4ef66e0d9307c",
     "category": "finance",
     "source": "www.federalreserve.gov",
