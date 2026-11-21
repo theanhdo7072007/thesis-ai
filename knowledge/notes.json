@@ -1,5 +1,47 @@
 [
   {
+    "id": "6ffb3b6c56d4e0fb",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Federal Reserve announces College Fed Challenge winners",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/other20261120b.htm",
+    "snippet": "Federal Reserve announces College Fed Challenge winners",
+    "published": "Fri, 20 Nov 2026 21:15:00 GMT",
+    "summary_vi": "Cục Dự trữ Liên bang (Fed) đã công bố danh sách những người chiến thắng trong cuộc thi College Fed Challenge.",
+    "open_question_vi": "Những tiêu chí cụ thể nào được sử dụng để đánh giá các đội tham gia cuộc thi này?",
+    "learned_at": "2026-11-21T03:58:10+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "4b9813abbbbcba46",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Federal Reserve Board releases results from survey of senior financial officers at banks about their strategies and practices for managing reserve balances",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/other20261120a.htm",
+    "snippet": "Federal Reserve Board releases results from survey of senior financial officers at banks about their strategies and practices for managing reserve balances",
+    "published": "Fri, 20 Nov 2026 15:00:00 GMT",
+    "summary_vi": "Cục Dự trữ Liên bang đã công bố kết quả khảo sát các cán bộ tài chính cấp cao tại các ngân hàng về chiến lược quản lý số dư dự trữ.",
+    "open_question_vi": "Những xu hướng chính nào được rút ra từ các chiến lược quản lý dự trữ của các ngân hàng trong khảo sát này?",
+    "learned_at": "2026-11-21T03:58:10+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "ace204e07fc03ce4",
+    "category": "science",
+    "source": "www.nasa.gov",
+    "title": "New NASA Seed Funding Primes Small Businesses for Innovation",
+    "url": "https://www.nasa.gov/directorates/rtmd/new-nasa-seed-funding-primes-small-businesses-for-innovation/",
+    "snippet": "Awards to small businesses around the country are addressing some of NASA’s most crucial technology needs for exploration of the Moon and Mars while fueling the U.S. space economy. NASA’s Small Business Innovation Research/Small Business Technology Transfer (SBIR/STTR) program recently selected 302 innovative projects, for a total investment of up to $171 million in seed […]",
+    "published": "Fri, 20 Nov 2026 20:46:14 +0000",
+    "summary_vi": "NASA đã cấp vốn hạt giống trị giá lên tới 171 triệu USD cho 302 dự án của các doanh nghiệp nhỏ nhằm thúc đẩy đổi mới công nghệ phục vụ khám phá Mặt Trăng và Sao Hỏa.",
+    "open_question_vi": "Các lĩnh vực công nghệ cụ thể nào được ưu tiên trong đợt cấp vốn này của NASA?",
+    "learned_at": "2026-11-21T03:58:10+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
     "id": "325a2d06cee138cc",
     "category": "finance",
     "source": "www.federalreserve.gov",
