@@ -1,5 +1,19 @@
 [
   {
+    "id": "c7c3f2d60795dbca",
+    "category": "science",
+    "source": "www.nasa.gov",
+    "title": "65 Years of Human Spaceflight at NASA Johnson",
+    "url": "https://www.nasa.gov/centers-and-facilities/johnson/65-years-of-human-spaceflight-at-nasa-johnson/",
+    "snippet": "For 65 years, NASA’s Johnson Space Center in Houston has helped shape human spaceflight, from the Gemini missions that demonstrated rendezvous and docking techniques needed for Apollo to the research conducted aboard the International Space Station, which has supported a continuous human presence for more than 26 years. Today, Johnson teams are preparing crews and […]",
+    "published": "Sun, 22 Nov 2026 19:13:25 +0000",
+    "summary_vi": "Trung tâm Vũ trụ Johnson của NASA đã đóng vai trò quan trọng trong 65 năm phát triển các chuyến bay vào vũ trụ của con người, từ các nhiệm vụ Gemini đến việc duy trì sự hiện diện liên tục trên Trạm Vũ trụ Quốc tế. Hiện nay, đội ngũ tại đây đang tập trung vào công tác chuẩn bị cho các phi hành đoàn trong tương lai.",
+    "open_question_vi": "Những mục tiêu cụ thể nào mà đội ngũ tại Trung tâm Vũ trụ Johnson đang hướng tới cho các nhiệm vụ không gian tiếp theo?",
+    "learned_at": "2026-11-23T04:14:24+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
     "id": "668a9e048b9e7213",
     "category": "science",
     "source": "www.nasa.gov",
