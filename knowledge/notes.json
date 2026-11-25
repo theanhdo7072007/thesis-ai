@@ -1,5 +1,33 @@
 [
   {
+    "id": "ee53adbaa022cb62",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Minutes of the Board's discount rate meetings on October 19 and October 28, 2026",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261124a.htm",
+    "snippet": "Minutes of the Board's discount rate meetings on October 19 and October 28, 2026",
+    "published": "Tue, 24 Nov 2026 19:00:00 GMT",
+    "summary_vi": "Tài liệu này ghi lại biên bản các cuộc họp về lãi suất chiết khấu của Hội đồng Dự trữ Liên bang diễn ra vào ngày 19 và 28 tháng 10 năm 2026.",
+    "open_question_vi": "Những quyết định cụ thể nào về lãi suất đã được thông qua trong các cuộc họp này?",
+    "learned_at": "2026-11-25T04:14:57+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "d85898925b10dda1",
+    "category": "science",
+    "source": "www.nasa.gov",
+    "title": "NASA+ Content Coming to Big Screen at Greenbelt, Maryland Cinema",
+    "url": "https://www.nasa.gov/nasa/nasa-content-coming-to-big-screen-at-greenbelt-maryland-cinema/",
+    "snippet": "NASA announced Monday that NASA+ content has found its first theatrical home at The Greenbelt Cinema in Greenbelt, Maryland, expanding the agency’s reach across major viewing platforms and bringing space even closer to home. “The National Aeronautics and Space Act of 1958 calls us to share our story of space exploration with the broadest possible […]",
+    "published": "Tue, 24 Nov 2026 21:14:36 +0000",
+    "summary_vi": "NASA thông báo rằng nội dung từ nền tảng NASA+ sẽ được trình chiếu tại rạp The Greenbelt Cinema ở Maryland, nhằm mục đích phổ biến kiến thức về khám phá không gian.",
+    "open_question_vi": "Những loại nội dung cụ thể nào của NASA+ sẽ được ưu tiên trình chiếu tại rạp?",
+    "learned_at": "2026-11-25T04:14:57+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
     "id": "375278fb60b05852",
     "category": "science",
     "source": "www.nasa.gov",
