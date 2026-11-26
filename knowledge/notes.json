@@ -1,5 +1,47 @@
 [
   {
+    "id": "ebcc18ee02d95aa3",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Agencies announce dollar thresholds for applicability of truth in lending and consumer leasing rules for consumer credit and lease transactions",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/bcreg20261125b.htm",
+    "snippet": "Agencies announce dollar thresholds for applicability of truth in lending and consumer leasing rules for consumer credit and lease transactions",
+    "published": "Wed, 25 Nov 2026 20:00:00 GMT",
+    "summary_vi": "Các cơ quan chức năng đã công bố ngưỡng giá trị bằng đô la áp dụng cho các quy định về trung thực trong cho vay và cho thuê tiêu dùng. Thông tin chi tiết về các ngưỡng cụ thể không được cung cấp trong bản tóm tắt.",
+    "open_question_vi": "Các ngưỡng giá trị bằng đô la mới được thiết lập là bao nhiêu và chúng ảnh hưởng như thế nào đến các giao dịch tín dụng tiêu dùng?",
+    "learned_at": "2026-11-26T04:10:23+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "657383e9620afc1b",
+    "category": "finance",
+    "source": "www.federalreserve.gov",
+    "title": "Agencies announce dollar thresholds for smaller loan exemption from appraisal requirements for higher-priced mortgage loans",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/bcreg20261125a.htm",
+    "snippet": "Agencies announce dollar thresholds for smaller loan exemption from appraisal requirements for higher-priced mortgage loans",
+    "published": "Wed, 25 Nov 2026 20:00:00 GMT",
+    "summary_vi": "Các cơ quan quản lý đã thông báo về các ngưỡng giá trị bằng đô la để miễn trừ yêu cầu thẩm định đối với các khoản vay thế chấp có giá trị cao. Bản tóm tắt không nêu rõ con số cụ thể của các ngưỡng này.",
+    "open_question_vi": "Mức ngưỡng giá trị khoản vay nào sẽ được miễn trừ yêu cầu thẩm định theo quy định mới này?",
+    "learned_at": "2026-11-26T04:10:23+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
+    "id": "cd9fa1ab7cca3990",
+    "category": "science",
+    "source": "www.nasa.gov",
+    "title": "NASA Enhances Supplier Program, Announces Mentor-Protégé Agreement",
+    "url": "https://www.nasa.gov/organizations/osbp/nasa-enhances-supplier-program-announces-mentor-protege-agreement/",
+    "snippet": "How NASA works with small businesses is evolving, and as a result, the agency is strengthening the domestic aerospace industrial base to support future exploration missions through its recently renamed Small Business Supplier Development Program. As part of the program, NASA announced its latest Mentor-Protégé Agreement, this one signed between The Boeing Company and GRACE […]",
+    "published": "Wed, 25 Nov 2026 19:06:56 +0000",
+    "summary_vi": "NASA đã đổi tên chương trình hỗ trợ nhà cung cấp thành Chương trình Phát triển Nhà cung cấp Doanh nghiệp Nhỏ và ký kết thỏa thuận Mentor-Protégé giữa Boeing và GRACE. Mục tiêu là củng cố cơ sở công nghiệp hàng không vũ trụ trong nước để hỗ trợ các sứ mệnh khám phá tương lai.",
+    "open_question_vi": "Thỏa thuận Mentor-Protégé giữa Boeing và GRACE sẽ mang lại những lợi ích cụ thể nào cho các doanh nghiệp nhỏ trong chuỗi cung ứng của NASA?",
+    "learned_at": "2026-11-26T04:10:23+00:00",
+    "review_status": "needs_review",
+    "evidence_level": "one_rss_excerpt"
+  },
+  {
     "id": "ee53adbaa022cb62",
     "category": "finance",
     "source": "www.federalreserve.gov",
